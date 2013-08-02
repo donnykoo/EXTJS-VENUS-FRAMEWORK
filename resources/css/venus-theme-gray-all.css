@@ -1,0 +1,14 @@
+
+.v-toolbar
+{
+	float:right;
+	width:360px;
+	text-align: right;
+}
+
+.v-toolbar img
+{
+	width: 32px;
+	height: 32px;
+	margin: 0 10 0 10;
+}
