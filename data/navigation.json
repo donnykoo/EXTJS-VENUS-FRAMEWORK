@@ -1,0 +1,8 @@
+[
+	{name: 'Module - 1', submenus: [{name: '子菜单1'}, {name: '子菜单2'},{name: '子菜单3'}, {name: '子菜单4'}]}, 
+	{name: 'Module - 2'}, 
+	{name: 'Module - 3', submenus: [{name: '子菜单1'}, {name: '子菜单2'}]}, 
+	{name: 'Module - 4', submenus: [{name: '子菜单1'}, {name: '子菜单2'}]}, 
+	{name: 'Module - 5', submenus: [{name: '子菜单1'}, {name: '子菜单2'}]}, 
+	{name: 'Module - 6', submenus: [{name: '1'}, {name: '2'}]}
+]
