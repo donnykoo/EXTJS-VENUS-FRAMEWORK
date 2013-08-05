@@ -3,10 +3,12 @@ Ext.define('App.view.Viewport', {
 
     uses : [
         'Ext.app.SubApplication',
-        'App.view.Main'
+		'App.view.Navigator',
+		'App.view.ContentPanel'
     ],
 
     layout : 'border',
+	
 	border: 3,
 	/*
 	style: {
@@ -18,7 +20,7 @@ Ext.define('App.view.Viewport', {
     items  : [{
         region: 'north',     // position for region
         xtype: 'container',
-        height: 40,
+        height: 48,
 		layout: 'border',
         split: false,         // disable resizing
         margins: '0 0 0 0',
@@ -26,7 +28,7 @@ Ext.define('App.view.Viewport', {
 			xtype: 'component',
 			region:'west',
 			margins: '0 0 0 5',
-			width: 240,
+			width: 270,
 			collapsible: false
 		},{
 			xtype: 'container',
@@ -48,55 +50,49 @@ Ext.define('App.view.Viewport', {
 					tag: 'img',
 					src: 'resources/icons/09-user.png'
 				}
-			},{
-				xtype: 'component',
-				width: 32,
-				autoEl: {
-					tag: 'img',
-					src: 'resources/icons/03-mail.png'
-				}
-			},{
-				xtype: 'component',
-				width: 32,
-				autoEl: {
-					tag: 'img',
-					src: 'resources/icons/07-share.png'
-				}
 			}]
 		}]
     },{
-        title: 'Navigator',
-        region:'west',
+		id: 'west-region-container',
+		region:'west',
         xtype: 'panel',
-		frame: true,
+		split: false,
+		splitterResize: false,
         margins: '0 0 0 5',
-        width: 240,
-        collapsible: true,   // make collapsible
-        id: 'west-region-container',
-        layout: 'fit',
+        width: 270,
+        collapsible: false,   // make collapsible
+        layout: 'anchor',
+		autoScroll: false,
+		tbar: Ext.create('Ext.toolbar.Toolbar', {
+			//cls: 'x-panel-header',
+			height: 36,
+			items: [
+				'->',
+				{
+					itemId: 'refresh-btn',
+					text: 'Refresh',
+					iconCls: 'refresh'
+				}
+			]
+		}),
 		items: {
-			xtype : 'mainview'
+			xtype : 'navigatorview',
+			width: '100%',
+			data: []
 		}
     },{
-        title: 'Center Region',
         region: 'center',     // center region is required, no width/height specified
-        xtype: 'container',
+        xtype: 'contentpanel',
         layout: {
 			type: 'absolute'
-			// layout-specific configs go here
-			//itemCls: 'x-abs-layout-item',
 		},
         margins: '0 5 0 0',
-		style: "background-image: url('resources/images/ios-linen.jpg') !important",
-		items:[{
-			xtype:'container',
-			x: 100,
-			y: 100,
-			width: 200,
-			height: 200,
-			border: false,
-			style: "background-image: url('resources/images/ios-linen.jpg') !important;",
-			html: '<h1>Hello</h1>'
-		}]
-    }]
+		items:[]
+    },{
+        region: 'south',     // position for region
+        xtype: 'container',
+        height: 36,
+        split: false,         // disable resizing
+        margins: '0 0 0 0'
+	}]
 });

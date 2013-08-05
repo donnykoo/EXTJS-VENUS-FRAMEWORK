@@ -5,7 +5,7 @@ Ext.define('App.controller.Main', {
         var me = this;
 
         me.control({
-            'mainview button' : {
+            '#ux-navigator-wrapper a' : {
                 click : me.handleButtonClick
             }
         });

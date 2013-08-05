@@ -5,8 +5,11 @@
  * For example, to include the neptune flavor of ext from an index page in a subdirectory
  * of extjs/examples/:
  * <script type="text/javascript" src="../../examples/shared/include-ext.js?theme=neptune"></script>
+ * The file was included and executed before Extjs, so here we do not know anything from Extjs
+ * return the basket as the global variable, so it can be accessed anywhere in js code.
+ * In the future we can add more interface in the return basket object to keep settings information
  */
-(function() {
+basket = (function() {
     function getQueryParam(name) {
         var regex = RegExp('[?&]' + name + '=([^&]*)');
 
@@ -41,6 +44,7 @@
         path = scriptEls[scriptEls.length - 1].src,
         rtl = getQueryParam('rtl'),
         theme = getQueryParam('theme') || 'neptune',
+		debugMode = getQueryParam('debug'), //是否为调试模式
         includeCSS = !hasOption('nocss', path),
         neptune = (theme === 'neptune'),
         repoDevMode = getCookieValue('ExtRepoDevMode'),
@@ -53,8 +57,10 @@
     while (i--) {
         path = path.substring(0, path.lastIndexOf('/'));
     }
-        
-    if (theme && theme !== 'classic') {
+    
+
+	
+	if (theme && theme !== 'classic') {
         suffix.push(theme);
     }
     if (rtl) {
@@ -92,5 +98,8 @@
             document.write('<script type="text/javascript" src="' + neptunePath + '" defer></script>');
         }
     }
-
+	
+	return {
+		debug: debugMode
+	};
 })();

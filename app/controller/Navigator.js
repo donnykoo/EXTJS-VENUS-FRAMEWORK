@@ -52,6 +52,12 @@ Ext.define('App.controller.Navigator', {
 					scope: me,
 					delegate: '.top-menu-anchor'
 				});
+				
+				me.mon(navigatorEl, {
+					click: me.onSubMenuClick,
+					scope: me,
+					delegate: '.sub-menu-anchor'
+				});
 			},
 			failure: function(response, opts) {
 				Ext.Logger.error('server-side failure with status code ' + response.status);
@@ -83,6 +89,40 @@ Ext.define('App.controller.Navigator', {
 			element.removeCls("active");
 			element.next("ul").replaceCls("slide-down-show", "slide-up-hide");
 		}
+	},
+	
+	onSubMenuClick: function(event, target, eOpts){
+		var me     = this,
+            app    = me.application,
+            subapp = new Ext.app.SubApplication({
+                app          : app,
+                id           : 'Module.test.view.Main',
+                loadMask     : true,
+                loadingText  : 'Loading Test...',
+
+                controllers : [
+                    'Module.test.controller.Main'
+                ],
+
+                dependencies : {
+                    css : [
+                        'modules/test/css/main.css'
+                    ],
+                    js  : [
+                        'modules/test/controller/Main.js',
+                        'modules/test/view/Main.js'
+                    ]
+                },
+
+                launch: function() {
+                    var win = Ext.create('Module.test.view.Main', {
+                        app : me
+                    });
+                    win.show();
+
+                    return win;
+                }
+            });
 	},
 	
 	/**
