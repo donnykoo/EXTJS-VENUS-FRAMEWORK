@@ -1,0 +1,12 @@
+{
+    'success': true,    
+    'results': [
+        {'sku': '1', 'name': 'Led Zeppelin', 'price': 200.0, 'validThru': ''}, 
+        {'sku': '2', 'name': 'The Rolling Stones', 'price': 200.0, 'validThru': ''}, 
+        {'sku': '3', 'name': 'Daft Punk', 'price': 200.0, 'validThru': ''},
+        {'sku': '4', 'name': 'John Mayer', 'price': 200.0, 'validThru': ''}, 
+        {'sku': '5', 'name': 'Pete Philly &amp; Perquisite', 'price': 200.0, 'validThru': ''}, 
+        {'sku': '6', 'name': 'Black Star', 'price': 200.0, 'validThru': ''},
+        {'sku': '7', 'name': 'Macy Gray', 'price': 200.0, 'validThru': ''}
+    ]
+}
