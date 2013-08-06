@@ -4,14 +4,13 @@ Ext.define('App.view.ContentPanel', {
 
     initComponent: function() {
         var me = this;
-
         me.callParent();
     },
 	
-	tbar: Ext.create('Ext.toolbar.Toolbar', {
+	bbar: Ext.create('Ext.toolbar.Toolbar', {
 		height: 36,
 		items: [
-			'<span style="color:#15428B; font-weight:bold">Back</span>'
+			
 		]
 	})
 });

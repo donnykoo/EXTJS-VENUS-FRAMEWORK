@@ -35,7 +35,6 @@ Ext.application({
     autoCreateViewport: true,
 
     controllers: [
-        'Main',
 		'Navigator',
 		'ContentPanel'
     ],

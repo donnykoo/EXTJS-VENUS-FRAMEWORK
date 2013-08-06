@@ -4,25 +4,17 @@ Ext.define('App.view.Navigator', {
 	
     initComponent: function() {
         var me = this;
-
-		/*
-        Ext.apply(me, {
-            
-        });
-		*/
-
         me.callParent();
-
     },
 
 	tpl: [
 		'<div id="ux-navigator-wrapper" >',
 		'<ul class="ux-navigator-menu">',
 		'<tpl for=".">',      
-			'<li class="item"><a class="top-menu-anchor" href="#">{#} - {name}<span> {[ values.submenus ? values.submenus.length : 0 ]}</span></a>',
+			'<li class="item"><a class="top-menu-anchor" href="#">{name}<span> {[ values.modules ? values.modules.length : 0 ]}</span></a>',
 				'<ul>',
-					'<tpl for="submenus">', 
-					'<li class="subitem"><a class="sub-menu-anchor" href="#"> {name} </a></li>',
+					'<tpl for="modules">', 
+					'<li class="subitem"><a class="sub-menu-anchor" href="#" module="{module}"> {name} </a></li>',
 					'</tpl>',
 				'</ul>',
 			'</li>',

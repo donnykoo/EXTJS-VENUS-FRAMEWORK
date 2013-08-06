@@ -18,7 +18,10 @@ Ext.define('App.controller.Navigator', {
 	refs : [{
         ref: 'navigatorView',
         selector: 'navigatorview'
-    }],
+    },{
+		ref: 'contentPanel',
+		selector: 'contentpanel'
+	}],
 	
 	onLaunch: function(appliation){
 		
@@ -91,36 +94,76 @@ Ext.define('App.controller.Navigator', {
 		}
 	},
 	
+	
+	/** private method to create module entry controller name **/
+	getModuleMainController: function(module){
+		return Ext.String.format('Module.{0}.controller.Main', module);
+	},
+	
+	getModuleMainView: function(module){
+		return Ext.String.format('Module.{0}.view.Main', module);
+	},
+	
+	getJSFile: function(className){
+		var realName = className.substr(7); //Exclude 'Module.'
+		var path = realName.replace(/\./g, '/')
+		return Ext.String.format('modules/{0}.js', path);
+	},
+	
+	setModuleLoadPath: function(module){
+		var modulePath = module.replace(/\./g, '/');
+		Ext.Loader.setPath(Ext.String.format('Module.{0}.store', module), Ext.String.format('modules/{0}/store', modulePath));
+	},
+	
 	onSubMenuClick: function(event, target, eOpts){
-		var me     = this,
-            app    = me.application,
+		var me = this,
+			element = event.getTarget(null, null, true),
+			module = element.getAttribute("module"),
+			moduleController = me.getModuleMainController(module),
+			moduleView = me.getModuleMainView(module),
+			moduleJSFiles = [
+				me.getJSFile(moduleController), me.getJSFile(moduleView)
+			];
+			
+			
+		me.setModuleLoadPath(module);
+		
+		
+		var app    = me.application,
             subapp = new Ext.app.SubApplication({
                 app          : app,
-                id           : 'Module.test.view.Main',
+                id           : moduleView,
                 loadMask     : true,
-                loadingText  : 'Loading Test...',
+                loadingText  : 'Loading ...',
 
                 controllers : [
-                    'Module.test.controller.Main'
+                    moduleController
                 ],
 
                 dependencies : {
                     css : [
-                        'modules/test/css/main.css'
+                        
                     ],
-                    js  : [
-                        'modules/test/controller/Main.js',
-                        'modules/test/view/Main.js'
-                    ]
+                    js  : moduleJSFiles
                 },
 
                 launch: function() {
-                    var win = Ext.create('Module.test.view.Main', {
-                        app : me
+                    var comp = Ext.create(moduleView, {
+                        app : me,
+						contentView: me.getContentPanel(),
+						autoRender: true
                     });
-                    win.show();
-
-                    return win;
+                    
+					//Insert comp into the ContentPanel
+					
+					var content = me.getContentPanel();
+					if(content){
+						content.removeAll(true);
+						content.add(comp);
+					}
+					
+					comp.doLayout();
+                    return comp;
                 }
             });
 	},

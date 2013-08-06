@@ -195,7 +195,7 @@ ul, ul ul {
     width: 1em;
     height: 1em;
     top: 0;
-    left: -2.7em;
+    left: -2.0em;
 }
 .ux-navigator-menu > li > ul li:hover a,
 .ux-navigator-menu > li > ul li:hover a span,
@@ -259,4 +259,57 @@ ul, ul ul {
     background-image: url('images/logo-splash.png') !important;
     margin-top: -30px;
     margin-bottom: 10px;
+}
+
+.x-mask {
+    background-color: white;
+    opacity: 0.5;
+}
+
+/**
+#west-region-container-innerCt {
+	background: url('../images/bg.jpg') #10a5d3;
+}
+
+#content-container-innerCt {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0px 1px 0px rgba(0,0,0,.5);
+}
+
+#content-container-innerCt {
+	background: url('../images/bg.jpg') #10a5d3;
+}
+**/
+
+.x-form-item-label {
+	color: #35afe3;
+	font-weight: 600;
+}
+
+
+/** Define the header **/
+#ux-header-wrapper
+{
+	float: right;
+	margin-right: 72px;
+}
+
+#ux-header-wrapper table td
+{
+	font-size: 12px;
+	text-align: right;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 550;
+	line-height: 20px;
+}
+
+#ux-header-wrapper table td a
+{
+	font-size: 14px;
+	text-align: right;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    color: #878d95;
 }

@@ -16,5 +16,14 @@ Ext.define('Module.test.view.Main', {
         });
 
         me.callParent();
-    }
+    },
+	
+	dockedItems: [{
+        xtype: 'toolbar',
+        dock: 'top',
+        items: [{
+            text: 'Docked to the top',
+			itemId: 'openCustomPanel-btn'
+        }]
+    }]
 });

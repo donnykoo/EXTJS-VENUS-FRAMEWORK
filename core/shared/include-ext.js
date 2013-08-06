@@ -70,10 +70,10 @@ basket = (function() {
     suffix = (suffix.length) ? ('-' + suffix.join('-')) : '';
 
     if (includeCSS) {
-        document.write('<link rel="stylesheet" type="text/css" href="' + path + '/extjs/resources/css/ext-all' + suffix + '-debug.css"/>');
+        document.write('<link rel="stylesheet" type="text/css" href="' + path + '/extjs/resources/css/ext-all' + suffix + '.css"/>');
 		document.write('<link rel="stylesheet" type="text/css" href="' + path + '/resources/css/venus-theme' + suffix + '-all.css"/>');
     }
-    document.write('<script type="text/javascript" src="' + path + '/extjs/ext-all' + (rtl ? '-rtl' : '') + '.js"></script>');
+    document.write('<script type="text/javascript" src="' + path + '/extjs/ext-all' + (rtl ? '-rtl' : '') + (debugMode ? '-debug' : '') + '.js"></script>');
 
     if (neptune) {
         // since document.write('<script>') does not block execution in IE, we need to 
