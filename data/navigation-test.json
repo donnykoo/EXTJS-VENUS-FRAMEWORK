@@ -1,0 +1,34 @@
+[
+	{	
+		name: 'POS Master Data', 
+		modules: [
+			{	
+				name: 'Price Book', module: 'pos.priceBook'
+			}, 
+			{name: 'Product Master', module: 'test'},
+			{name: 'Bays', module: 'pos.bays'}, 
+			{name: 'Staffs', module: 'pos.staffs' }
+		]
+	}, 
+	{
+		name: 'Transactions',
+		modules: [
+			{	
+				name: 'Reservation', module: 'pos.reservation'
+			}, 
+			{
+				name: 'Service Instance', module: 'pos.serviceInstance' 
+			},
+			{
+				name: 'Sales', module: 'pos.salse'
+			}, 
+			{
+				name: 'Inventory', module: 'pos.inventory' 
+			}
+		]
+	}, 
+	{name: 'Reporting', modules: [{name: '子菜单1'}, {name: '子菜单2'}]}, 
+	{name: 'Group - 4', modules: [{name: '子菜单1'}, {name: '子菜单2'}]}, 
+	{name: 'Group - 5', modules: [{name: '子菜单1'}, {name: '子菜单2'}]}, 
+	{name: 'Group - 6', modules: [{name: '1'}, {name: '2'}]}
+]

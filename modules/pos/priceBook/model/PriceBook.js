@@ -1,13 +1,15 @@
 Ext.define('Module.pos.priceBook.model.PriceBook', {
     extend: 'Ext.data.Model',
-    fields: ['sku', 'name', 'price', 'validThru'],
- 
+    fields: ['Id', 'Version', 'Active', 'LastUpdate', 'SKU', 'ProductName', 'Price', 'EffectiveDate', 'EndDate', 'Store'],
+	idProperty: 'Id',
     proxy: {
         type: 'ajax',
-        url: 'data/priceBooks.json',
+        url: Ext.String.format('{0}/PriceBooks?$inlinecount=allpages', basket.dataSource),
         reader: {
-            type: 'json',
-            root: 'results'
+			type: 'json',
+            root: 'value',
+			totalProperty: 'odata.count',
+			useSimpleAccessors: true 
         }
     }
 });

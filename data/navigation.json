@@ -1,34 +1,40 @@
 [
 	{	
-		name: 'POS Master Data', 
+		name: 'POS主数据管理', 
 		modules: [
+			{name: '商品目录', module: 'pos.product'},
 			{	
-				name: 'Price Book', module: 'pos.priceBook'
+				name: '零售价格本', module: 'pos.priceBook'
 			}, 
-			{name: 'Product Master', module: 'test'},
-			{name: 'Bays', module: 'pos.bays'}, 
-			{name: 'Staffs', module: 'pos.staffs' }
+			{name: '工位查询', module: 'pos.bay'}, 
+			{name: '员工查询', module: 'pos.staff' },
 		]
 	}, 
 	{
-		name: 'Transactions',
+		name: 'POS运营管理',
 		modules: [
 			{	
-				name: 'Reservation', module: 'pos.reservation'
+				name: '预约管理', module: 'pos.reservation'
 			}, 
 			{
-				name: 'Service Instance', module: 'pos.serviceInstance' 
+				name: '施工作业管理', module: 'pos.serviceInstance' 
 			},
 			{
-				name: 'Sales', module: 'pos.salse'
+				name: 'POS销售管理', module: 'pos.sales'
 			}, 
 			{
-				name: 'Inventory', module: 'pos.inventory' 
+				name: '库存管理', module: 'pos.inventory' 
 			}
 		]
 	}, 
-	{name: 'Reporting', modules: [{name: '子菜单1'}, {name: '子菜单2'}]}, 
-	{name: 'Group - 4', modules: [{name: '子菜单1'}, {name: '子菜单2'}]}, 
-	{name: 'Group - 5', modules: [{name: '子菜单1'}, {name: '子菜单2'}]}, 
-	{name: 'Group - 6', modules: [{name: '1'}, {name: '2'}]}
+	{
+		name: '报表', 
+		modules: [
+			{
+				name: '销售报表', module: 'pos.report.sales'
+			}, {
+				name: '施工作业看板', module: 'pos.report.workshop'
+			}
+		]
+	}
 ]

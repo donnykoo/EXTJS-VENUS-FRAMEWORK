@@ -3,5 +3,5 @@ Ext.define('Module.pos.priceBook.store.PriceBooks', {
     requires: 'Module.pos.priceBook.model.PriceBook',
     model: 'Module.pos.priceBook.model.PriceBook',
 	autoLoad: true,
-	pageSize: 5
+	pageSize: basket.pageSize
 });

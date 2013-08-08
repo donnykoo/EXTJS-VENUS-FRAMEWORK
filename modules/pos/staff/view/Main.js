@@ -1,6 +1,6 @@
-Ext.define('Module.pos.priceBook.view.Main', {
+Ext.define('Module.pos.staff.view.Main', {
     extend : 'Ext.Panel',
-    alias  : 'widget.priceBookMainView',
+    alias  : 'widget.staffMainView',
 
 	anchor: '100% 100%',
 	margin: '5 5 5 10',
@@ -18,7 +18,8 @@ Ext.define('Module.pos.priceBook.view.Main', {
         Ext.apply(me, {
             
         });
-		var form = Ext.create('Ext.form.Panel', {
+		
+		var form = me.form = Ext.create('Ext.form.Panel', {
 			xtype: 'form',
 			width: '98%',
 			border: false,
@@ -41,12 +42,12 @@ Ext.define('Module.pos.priceBook.view.Main', {
 				defaultType: 'textfield',
 				items: [
 					{
-						fieldLabel: 'SKU',
-						name: 'SKU',
+						fieldLabel: '姓名',
+						name: 'Name',
 						flex: 1
 					},{
-						fieldLabel: 'Name',
-						name: 'Name',
+						fieldLabel: '员工号',
+						name: 'StaffNumber',
 						flex: 1
 					},{
 						xtype: 'hidden',
@@ -70,33 +71,32 @@ Ext.define('Module.pos.priceBook.view.Main', {
 			]
 		});
 
-		this.items = [form,{
-			xtype: 'gridpanel',
+		var grid = me.grid = Ext.create('Ext.grid.Panel', {
 			tbar: {
 				xtype: 'toolbar',
 				border: true,
 				height: 30,
 				items: []
 			},
-			store:  Ext.data.StoreManager.lookup('Module.pos.priceBook.store.PriceBooks'),
+			store:  Ext.data.StoreManager.lookup('Module.pos.staff.store.Staffs'),
 			border: false,
 			flex: 1,
 			anchor: '98% 98%',
 			margin: '10 5 5 10',
 			columns: [
-				{ text: 'SKU',  dataIndex: 'SKU', width: 100 },
-				{ text: 'Name', dataIndex: 'ProductName', flex: 1 },
-				{ text: 'Price', dataIndex: 'Price', width: 160 },
-				{ text: 'Effective Date', dataIndex: 'EffectiveDate', width: 160 },
-				{ text: 'End Date', dataIndex: 'EndDate', width: 160 }
+				{ text: '姓名', dataIndex: 'Name', width: 100 },
+				{ text: '员工号',  dataIndex: 'StaffNumber', width: 200 },
+				{ text: 'RFID卡号', dataIndex: 'RFCardNumber', width: 200 }
 			],
 			dockedItems: [{
 				xtype: 'pagingtoolbar',
-				store: Ext.data.StoreManager.lookup('Module.pos.priceBook.store.PriceBooks'),
+				store: Ext.data.StoreManager.lookup('Module.pos.staff.store.Staffs'),
 				dock: 'bottom',
 				displayInfo: true
 			}],
-		}];
+		});
+		
+		this.items = [form, grid];
 		
         me.callParent();
     }

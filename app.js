@@ -73,6 +73,11 @@ Ext.application({
 			Ext.apply(Ext.Logger, {
 				debug: function(message){
 					if (Ext.global.console) {
+						Ext.global.console.debug(message);
+					}
+				},
+				warn: function(message){
+					if (Ext.global.console) {
 						Ext.global.console.warn(message);
 					}
 				},

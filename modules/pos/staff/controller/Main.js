@@ -1,23 +1,23 @@
-Ext.define('Module.pos.priceBook.controller.Main', {
+Ext.define('Module.pos.staff.controller.Main', {
     extend : 'Ext.app.Controller',
 	
 	
-    stores : ['Module.pos.priceBook.store.PriceBooks'],
-    models : ['Module.pos.priceBook.model.PriceBook'],
+    stores : ['Module.pos.staff.store.Staffs'],
+    models : ['Module.pos.staff.model.Staff'],
 	
 	refs: [{
 		ref: 'contentPanel',
 		selector: 'contentpanel'
 	}, {
-		ref: 'priceBookMainView',
-		selector: 'priceBookMainView'
+		ref: 'staffMainView',
+		selector: 'staffMainView'
 	}],
 
     init: function() {
         var me = this;
 		
 		me.control({
-			'priceBookMainView': {
+			'staffMainView': {
 				afterrender: function(cmp){
 					
 				},
@@ -26,7 +26,7 @@ Ext.define('Module.pos.priceBook.controller.Main', {
 				}
 			},
 			
-			'priceBookMainView form #search-btn': {
+			'staffMainView form #search-btn': {
 				click: me.onSearchButtonClicked
 			}
 		});
@@ -35,12 +35,12 @@ Ext.define('Module.pos.priceBook.controller.Main', {
 	
 	onSearchButtonClicked: function(btn, event, eOpts){
 		var me = this;
-		var store = me.getStore('Module.pos.priceBook.store.PriceBooks');
+		var store = me.getStore('Module.pos.staff.store.Staffs');
 		store.load({
 			remoteFilter: true,
 			params:{
 				start:0,
-				limit: 5
+				limit: basket.pageSize
 			},
 			filters: [
 				new Ext.util.Filter({ 
@@ -51,6 +51,8 @@ Ext.define('Module.pos.priceBook.controller.Main', {
 			]
 		});
 	},
+	
+	
 	
 	beforeLaunch: function(appliation){
 		

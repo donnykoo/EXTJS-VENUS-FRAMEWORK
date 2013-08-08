@@ -1,0 +1,15 @@
+{
+    "odata.metadata": "http://localhost:17766/odata/$metadata#Staffs",
+    "value": [
+        {
+            "Name": "王大发",
+            "StaffNumber": "800001",
+            "RFCardNumber": "1001001001001",
+            "Salt": "r0lusurq",
+            "Version": 0,
+            "Active": true,
+            "LastUpdate": "2012-07-24T16:45:48",
+            "Id": "1"
+        }
+    ]
+}

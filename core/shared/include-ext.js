@@ -45,6 +45,8 @@ basket = (function() {
         rtl = getQueryParam('rtl'),
         theme = getQueryParam('theme') || 'neptune',
 		debugMode = getQueryParam('debug'), //是否为调试模式
+		pageSize = getQueryParam('pageSize') || 20, //从Query Parameter中获取分页的大小，通过在服务器端重定向时可以控制分页大小，缺省是20
+		dataSourceHome = getQueryParam('data') || 'data', //Data Source 的根路径
         includeCSS = !hasOption('nocss', path),
         neptune = (theme === 'neptune'),
         repoDevMode = getCookieValue('ExtRepoDevMode'),
@@ -100,6 +102,8 @@ basket = (function() {
     }
 	
 	return {
-		debug: debugMode
+		debug: debugMode,
+		pageSize: pageSize,
+		dataSource : dataSourceHome
 	};
 })();
