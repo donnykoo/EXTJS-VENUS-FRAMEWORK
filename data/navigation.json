@@ -3,6 +3,10 @@
 		name: 'POS主数据管理', 
 		modules: [
 			{name: '商品目录', module: 'pos.product'},
+			{name: '服务目录', module: 'pos.service'},
+			{name: '车型目录', module: 'pos.vehicleModel'},
+			{name: '客户目录', module: 'pos.customer'},
+			{name: '客户车辆目录', module: 'pos.vehicle'},
 			{	
 				name: '零售价格本', module: 'pos.priceBook'
 			}, 
