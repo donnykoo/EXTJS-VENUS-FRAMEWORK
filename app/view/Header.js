@@ -8,8 +8,8 @@ Ext.define('App.view.Header', {
     },
 
 	data: {
-		name: 'ehe888',
-		avatar: 'http://localhost/venus/resources/images/avatar.jpg'
+		name: '用户',
+		avatar: 'resources/images/avatar.jpg'
 	},
 	
 	tpl: [
@@ -18,7 +18,7 @@ Ext.define('App.view.Header', {
 		'<tr><td>{name}</td>',
 		'<td rowspan="2" width="5" >&nbsp;</td>',
 		'<td rowspan="2" ><img width=40 height=40 src="{avatar}"/></td></tr>',
-		'<tr><td><a href="account/logout">LOG OUT</a></td></tr>',
+		'<tr><td><a href="' + basket.contextPath + 'account/logoff">LOG OUT</a></td></tr>',
 		'</table>',
 		'</div>'
 	]

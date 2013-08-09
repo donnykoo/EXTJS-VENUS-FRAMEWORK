@@ -8,11 +8,18 @@ Ext.override(Ext.data.proxy.Server, {
             // Clone params right now so that they can be mutated at any point further down the call stack
             params = operation.params = Ext.apply({}, operation.params, me.extraParams),
             request;
+			
+		if(!me.headers){
+			me.headers = {};
+		}
+		Ext.Logger.debug("-> Request Headers:");
+		Ext.Logger.dir(me.headers);
+
 
         //copy any sorters, filters etc into the params so they can be sent over the wire
         Ext.applyIf(params, me.getParams(operation));
 		
-		Ext.Logger.dir(operation.params);
+		
 		
 		/** Add the support to OData paging, convert the start and limit parameter to $top and $skip **/
 		if(params.start || params.start === 0){

@@ -1,10 +1,10 @@
-Ext.define('Module.pos.staff.model.Staff', {
+Ext.define('Module.pos.hardwareRegistry.model.HardwareRegistry', {
     extend: 'Ext.data.Model',
-    fields: ['Id', 'Version', 'StaffNumber', 'Name', 'RFCardNumber', 'Active', 'LastUpdate'],
+    fields: ['Id', 'Version', 'Active', 'LastUpdate', 'RegCode', 'Store', 'BayNumber', 'RegTime', 'DeviceType', 'MachineId', 'Secret' ],
 	idProperty: 'Id',
     proxy: {
         type: 'ajax',
-        url: Ext.String.format('{0}/Staffs?$inlinecount=allpages', basket.dataSource),
+        url: Ext.String.format('{0}/HardwareRegistries?$inlinecount=allpages', basket.dataSource), 
         reader: {
             type: 'json',
             root: 'value',
