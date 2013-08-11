@@ -48,7 +48,7 @@ basket = (function() {
 		pageSize = getQueryParam('pageSize') || 20, //从Query Parameter中获取分页的大小，通过在服务器端重定向时可以控制分页大小，缺省是20
 		dataSourceHome = getQueryParam('data') || 'data', //Data Source 的根路径
 		contextPath = getQueryParam('contextPath') || "/", //Web APP 的虚拟路径
-		storeCode = getQueryParam('store') || "",
+		storeCode = getQueryParam('store') || getCookieValue("X_STORE_OS_COOKIE_STORE_CODE") || "",
         includeCSS = !hasOption('nocss', path),
         neptune = (theme === 'neptune'),
         repoDevMode = getCookieValue('ExtRepoDevMode'),

@@ -24,34 +24,10 @@ Ext.define('Module.pos.staff.controller.Main', {
 				added: function(cmp, container, pos, eOpts ){
 					
 				}
-			},
-			
-			'staffMainView form #search-btn': {
-				click: me.onSearchButtonClicked
 			}
 		});
 		
     },
-	
-	onSearchButtonClicked: function(btn, event, eOpts){
-		var me = this;
-		var store = me.getStore('Module.pos.staff.store.Staffs');
-		store.load({
-			remoteFilter: true,
-			params:{
-				start:0,
-				limit: basket.pageSize
-			},
-			filters: [
-				new Ext.util.Filter({ 
-					property: 'sku',
-					operator: '*>',
-					value: '2'
-				})
-			]
-		});
-	},
-	
 	
 	
 	beforeLaunch: function(appliation){

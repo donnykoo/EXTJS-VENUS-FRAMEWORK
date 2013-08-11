@@ -256,7 +256,7 @@ ul, ul ul {
 
 .x-splash-icon {
     /* Important required due to the loading symbols CSS selector */
-    background-image: url('images/logo-splash.png') !important;
+    background-image: url('../images/logo-splash.png') !important;
     margin-top: -30px;
     margin-bottom: 10px;
 }
@@ -312,4 +312,8 @@ ul, ul ul {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 400;
     color: #878d95;
+}
+
+.ux-navi-refresh-btn {
+	background-image: url('../icons/metro/refresh.png') !important;
 }

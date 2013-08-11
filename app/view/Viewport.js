@@ -49,13 +49,14 @@ Ext.define('App.view.Viewport', {
 		bbar: Ext.create('Ext.toolbar.Toolbar', {
 			//cls: 'x-panel-header',
 			height: 36,
+			padding: '0 20 0 5',
 			items: [
 				'->',
 				{
 					itemId: 'refresh-btn',
 					text: 'Refresh',
-					iconCls: 'refresh'
-				}
+					iconCls: 'ux-navi-refresh-btn'
+				},'-'
 			]
 		}),
 		items: {

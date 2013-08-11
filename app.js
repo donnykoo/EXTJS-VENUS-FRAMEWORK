@@ -127,7 +127,7 @@ Ext.application({
 		}else if(response.status === 403){ //Forbidden
 			
 		}else if(response.status === 404){ //Page not found
-		
+			
 		}else if(response.status === 500){ //Internal Server Error
 		
 		}

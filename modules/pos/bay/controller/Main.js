@@ -1,23 +1,23 @@
-Ext.define('Module.pos.priceBook.controller.Main', {
+Ext.define('Module.pos.bay.controller.Main', {
     extend : 'Ext.app.Controller',
 	
 	
-    stores : ['Module.pos.priceBook.store.PriceBooks'],
-    models : ['Module.pos.priceBook.model.PriceBook'],
+    stores : ['Module.pos.bay.store.Bays'],
+    models : ['Module.pos.bay.model.Bay'],
 	
 	refs: [{
 		ref: 'contentPanel',
 		selector: 'contentpanel'
 	}, {
-		ref: 'priceBookMainView',
-		selector: 'priceBookMainView'
+		ref: 'bayMainView',
+		selector: 'bayMainView'
 	}],
 
     init: function() {
         var me = this;
 		
 		me.control({
-			'priceBookMainView': {
+			'bayMainView': {
 				afterrender: function(cmp){
 					
 				},

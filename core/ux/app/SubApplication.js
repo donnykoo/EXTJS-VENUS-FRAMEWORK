@@ -251,12 +251,26 @@ Ext.define('Ext.app.SubApplication', {
                 if (this.readyState === 'loaded' || this.readyState === 'complete') {
                     me.handleFileLoad(script);
                 }
-            }
+            },
+			onerror: Ext.Function.createDelayed(me.handleFileError, me.removeJSFileDelay, me, [script])
         });
 
         head.appendChild(script);
     },
 
+	//hide the loading mask when met any error
+	handleFileError: function(script){
+		script.onload = null;
+        script.onreadystatechange = null;
+        script.onerror = null;
+
+        var me       = this;
+		
+		if(me.loadMask){
+			me.loadMask.hide();
+		}
+	},
+	
     handleFileLoad: function(script) {
         script.onload = null;
         script.onreadystatechange = null;

@@ -128,7 +128,11 @@ Ext.define('App.controller.Navigator', {
 			
 		me.setModuleLoadPath(module);
 		
-		
+		var content = me.getContentPanel();
+		if(content){
+			content.removeAll(true);	
+			content.doLayout();			
+		}
 		var app    = me.application,
             subapp = new Ext.app.SubApplication({
                 app          : app,
@@ -156,7 +160,7 @@ Ext.define('App.controller.Navigator', {
                     
 					//Insert comp into the ContentPanel
 					
-					var content = me.getContentPanel();
+					
 					if(content){
 						content.removeAll(true);
 						content.add(comp);
