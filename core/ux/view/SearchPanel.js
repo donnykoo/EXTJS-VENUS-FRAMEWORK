@@ -80,6 +80,7 @@ Ext.define('Ext.ux.view.SearchPanel', {
 	defaultGridConfig: {
 		border: false,
 		margin: '10 5 5 10',
+		autoScroll: true,
 		tbar: {
 			xtype: 'toolbar',
 			border: true,

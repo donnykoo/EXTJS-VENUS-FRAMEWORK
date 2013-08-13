@@ -44,5 +44,13 @@
 				name: '施工作业看板', module: 'pos.report.workshop'
 			}
 		]
+	},
+	{
+		name: '系统', 
+		modules: [
+			{
+				name: '事务监控', module: 'pos.system.transaction'
+			}
+		]
 	}
 ]
