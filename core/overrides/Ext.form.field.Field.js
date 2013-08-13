@@ -39,3 +39,35 @@ Ext.override(Ext.form.field.Text, {
 		}
 	}
 });
+
+
+Ext.override(Ext.form.field.Date, {
+	getODataFilter: function(){
+		var me = this,
+			val = me.getValue();
+		if(Ext.isEmpty(val)){
+			return false;
+		}
+		
+		alert(val + "  " + me.getRawValue());
+		//If contains % in the text field, then this is pattern match search
+		var isEqualOperation = true;
+		/*
+		if(val.indexOf('%') != -1){
+			if(val.indexOf('[%]') != -1){
+				var newVal = val.replace(/[%]/g, '');
+				if(newVal.indexOf('%') != -1){
+					isEqualOperation = false;
+				}
+			}else{
+				isEqualOperation = false;
+			}
+		}
+		*/
+		if(isEqualOperation){
+			return Ext.String.format("{0} eq '{1}'", this.getName(), val);
+		}else{
+			return Ext.String.format("substringof('{0}', {1})",val, this.getName());
+		}
+	}
+});

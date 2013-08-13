@@ -29,7 +29,7 @@ Ext.define('App.view.Viewport', {
 			xtype: 'component',
 			region:'west',
 			margins: '0 0 0 5',
-			width: 270,
+			width: 260,
 			collapsible: false
 		},{
 			xtype: 'headerview'
@@ -42,7 +42,7 @@ Ext.define('App.view.Viewport', {
 		border:false,
 		splitterResize: false,
         margins: '0 0 0 5',
-        width: 270,
+        width: 260,
         collapsible: false,   // make collapsible
         layout: 'anchor',
 		autoScroll: false,

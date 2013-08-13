@@ -137,11 +137,17 @@ Ext.define('Ext.ux.view.SearchPanel', {
 			fields = form.getFields(),
 			filters = [];
 		
+		if(!form.isValid()){
+			return;
+		}
+		
 		fields.each(
 			function(item, index, length){
-				var filter = item.getODataFilter();
-				if(filter){
-					filters.push(filter);
+				if(item.getODataFilter){
+					var filter = item.getODataFilter();
+					if(filter){
+						filters.push(filter);
+					}
 				}
 			}
 		);

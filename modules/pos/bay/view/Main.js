@@ -14,7 +14,7 @@ Ext.define('Module.pos.bay.view.Main', {
 						padding: '0 0 0 10'
 					},
 					
-					defaultType: 'textfield',
+					defaultType: 'textfieldSearch',
 					items: [
 						{
 							fieldLabel: '名称',

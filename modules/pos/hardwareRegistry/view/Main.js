@@ -16,14 +16,16 @@ Ext.define('Module.pos.hardwareRegistry.view.Main', {
 						padding: '0 0 0 10'
 					},
 				
-					defaultType: 'textfield',
+					defaultType: 'textfieldSearch',
 					items: [
 							{
 								fieldLabel: '门店编号',
+								xtype: 'textfieldSearch',
 								name: 'Store',
 								flex: 1
 							},{
 								fieldLabel: '工位编号',
+								xtype: 'textfieldSearch',
 								name: 'BayNumber',
 								flex: 1
 							},{

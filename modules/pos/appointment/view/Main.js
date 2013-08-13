@@ -51,7 +51,7 @@ Ext.define('Module.pos.appointment.view.Main', {
 		
         Ext.apply(me, {
             formConfig: {
-				height: 120,
+				height: 100,
 				items: [{
 					layout: 'hbox',
 					defaults: {
@@ -59,14 +59,14 @@ Ext.define('Module.pos.appointment.view.Main', {
 						padding: '5 0 5 10'
 					},
 					
-					defaultType: 'textfield',
+					defaultType: 'textfieldSearch',
 					items: [
 						{
 							fieldLabel: '预约号',
 							name: 'IdNumber',
 							flex: 1
 						},{
-							xtype: 'datefield',
+							xtype: 'datefieldSearch',
 							fieldLabel: '预约日期',
 							name: 'AppointmentDay',
 							flex: 1
@@ -84,7 +84,7 @@ Ext.define('Module.pos.appointment.view.Main', {
 						padding: '5 0 5 10'
 					},
 					
-					defaultType: 'textfield',
+					defaultType: 'textfieldSearch',
 					items: [
 						{
 							fieldLabel: '顾客手机',
@@ -114,7 +114,11 @@ Ext.define('Module.pos.appointment.view.Main', {
 				{ text: '预约服务', dataIndex: 'ServiceNumber', width: 80 },
 				{ text: '预约日期', dataIndex: 'AppointmentDay', width: 80,  xtype: 'datecolumn', format:'Y-m-d' },
 				{ text: '预约开始时间', dataIndex: 'StartTime', width: 160, xtype:'datecolumn',  format:'Y-m-d H:i' },
-				{ text: '服务耗时', dataIndex: 'Duration', width: 60 },
+				{ text: '服务耗时', dataIndex: 'Duration', width: 60, 
+					renderer: function(value){
+						return Ext.String.format("{0}分钟", value);
+					} 
+				},
 				{ text: '顾客姓名', dataIndex: 'CustomerName', width: 60 },
 				{ text: '顾客手机', dataIndex: 'CustomerMobileMobile', width: 100 }
 			]
