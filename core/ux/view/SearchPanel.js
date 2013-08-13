@@ -11,7 +11,7 @@ Ext.define('Ext.ux.view.SearchPanel', {
 		align:'stretch'
 	},
 	
-	initComponent: function() {
+	createItems: function(){
 		var me = this,
 			formConfig = me.formConfig || {},
 			gridConfig = me.gridConfig || {},
@@ -53,6 +53,11 @@ Ext.define('Ext.ux.view.SearchPanel', {
 		var grid = me.grid = Ext.create('Ext.grid.Panel', gridConfig);
 		
 		this.items = [form, grid];
+	},
+	
+	initComponent: function() {
+		var me = this;
+		me.createItems();
 		
 		me.callParent();
 	},
@@ -64,7 +69,7 @@ Ext.define('Ext.ux.view.SearchPanel', {
 		margin: '10 5 5 10',
 		fieldDefaults: {
 			labelWidth: 120,
-			labelAlign: 'right'
+			labelAlign: 'left'
 		},
 		defaults: {
 			border: false
