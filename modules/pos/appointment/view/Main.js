@@ -120,7 +120,19 @@ Ext.define('Module.pos.appointment.view.Main', {
 					} 
 				},
 				{ text: '顾客姓名', dataIndex: 'CustomerName', width: 60 },
-				{ text: '顾客手机', dataIndex: 'CustomerMobileMobile', width: 100 }
+				{ text: '顾客手机', dataIndex: 'CustomerMobileMobile', width: 100 },
+				{ text: '状态', dataIndex: 'Status', width: 60, 
+					renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+						if(value === 'Pending'){
+							return '等候';
+						}else if(value === 'Confirmed'){
+							return '已确认作业';
+						}else if(value == 'Cancelled'){
+							return '已取消';
+						}
+						return value;
+					}
+				}
 			]
         });
 		
