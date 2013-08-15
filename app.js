@@ -36,7 +36,8 @@ Ext.application({
 
     controllers: [
 		'Navigator',
-		'ContentPanel'
+		'ContentPanel',
+		'Header'
     ],
 	
 	launch: function() {

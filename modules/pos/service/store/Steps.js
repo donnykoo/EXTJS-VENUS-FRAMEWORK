@@ -8,7 +8,7 @@ Ext.define('Module.pos.service.store.Steps', {
         type: 'memory',
         reader: {
             type: 'xml',
-			record: 'step',
+			record: 'Step',
             root: 'elements',                            
 		}    
     }
