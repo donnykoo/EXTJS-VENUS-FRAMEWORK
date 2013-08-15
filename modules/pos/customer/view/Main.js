@@ -15,7 +15,7 @@ Ext.define('Module.pos.customer.view.Main', {
 						padding: '5 0 5 10'
 					},
 					
-					defaultType: 'textfield',
+					defaultType: 'textfieldSearch',
 					items: [
 						{
 							fieldLabel: '会员编号',
@@ -39,7 +39,7 @@ Ext.define('Module.pos.customer.view.Main', {
 						padding: '5 0 5 10'
 					},
 					
-					defaultType: 'textfield',
+					defaultType: 'textfieldSearch',
 					items: [
 						{
 							fieldLabel: '姓',

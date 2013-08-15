@@ -117,6 +117,19 @@ basket = (function() {
 							+ pad(d.getUTCHours())+':'
 							+ pad(d.getUTCMinutes())+':'
 							+ pad(d.getUTCSeconds())+'Z'
-					}
+					},
+		GetXMLDoc: function(xmlStr){  
+			var doc;
+			if(window.ActiveXObject){
+			  doc = new ActiveXObject("Microsoft.XMLDOM");
+			  doc.async = "false";
+			  doc.loadXML(xmlStr);
+			}else{
+			  doc = new DOMParser().parseFromString(xmlStr,"text/xml");
+			}
+
+			console.log("xml", xmlStr); 
+			return doc;
+		}
 	};
 })();

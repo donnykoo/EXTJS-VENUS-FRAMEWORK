@@ -12,10 +12,10 @@ Ext.define('Module.pos.vehicle.view.Main', {
 					layout: 'hbox',
 					defaults: {
 						flex: 1,
-						padding: '5 0 5 0'
+						padding: '5 0 5 10'
 					},
 					
-					defaultType: 'textfield',
+					defaultType: 'textfieldSearch',
 					items: [
 						{
 							fieldLabel: '车牌号',
@@ -36,10 +36,10 @@ Ext.define('Module.pos.vehicle.view.Main', {
 					layout: 'hbox',
 					defaults: {
 						flex: 1,
-						padding: '5 0 5 0'
+						padding: '5 0 5 10'
 					},
 					
-					defaultType: 'textfield',
+					defaultType: 'textfieldSearch',
 					items: [
 						{
 							fieldLabel: '车型',
