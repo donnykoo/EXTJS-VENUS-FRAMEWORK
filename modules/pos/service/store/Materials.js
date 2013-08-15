@@ -8,7 +8,7 @@ Ext.define('Module.pos.service.store.Materials', {
         type: 'memory',
         reader: {
             type: 'xml',
-			record: 'material',
+			record: 'Material',
             root: 'elements',                            
 		}    
     }

@@ -8,16 +8,16 @@ Ext.define('App.view.Header', {
     },
 
 	data: {
-		name: '用户',
-		avatar: 'resources/images/avatar.jpg'
+		UserName: '用户',
+		Avatar: 'resources/images/avatar.jpg'
 	},
 	
 	tpl: [
 		'<div id="ux-header-wrapper" >',
 		'<table width="100%" cellspacing="0" cellpadding="0">',
-		'<tr><td>{name}</td>',
+		'<tr><td>{UserName}</td>',
 		'<td rowspan="2" width="5" >&nbsp;</td>',
-		'<td rowspan="2" ><img width=40 height=40 src="{avatar}"/></td></tr>',
+		'<td rowspan="2" ><img width=40 height=40 src="resources/images/avatar.jpg"/></td></tr>',
 		'<tr><td><a href="' + basket.contextPath + 'account/logoff">LOG OUT</a></td></tr>',
 		'</table>',
 		'</div>'
