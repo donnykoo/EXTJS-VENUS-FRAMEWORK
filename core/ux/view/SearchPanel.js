@@ -17,7 +17,7 @@ Ext.define('Ext.ux.view.SearchPanel', {
 			gridConfig = me.gridConfig || {},
 			store = me.store,
 			columns = me.columns;
-			
+		
 		formConfig = Ext.apply(me.defaultFormConfig, formConfig);
 		formConfig.buttons = [
 			{ 
@@ -35,6 +35,8 @@ Ext.define('Ext.ux.view.SearchPanel', {
 			}
 		];
 		
+		
+		
 		gridConfig = Ext.apply(me.defaultGridConfig, gridConfig);	
 		gridConfig = Ext.apply(gridConfig, {
 			store: me.store,
@@ -50,6 +52,7 @@ Ext.define('Ext.ux.view.SearchPanel', {
 		//1. Create the Form Panel
 		var form = me.form = Ext.create('Ext.form.Panel', formConfig);
 		
+		
 		var grid = me.grid = Ext.create('Ext.grid.Panel', gridConfig);
 		
 		this.items = [form, grid];
@@ -58,7 +61,6 @@ Ext.define('Ext.ux.view.SearchPanel', {
 	initComponent: function() {
 		var me = this;
 		me.createItems();
-		
 		me.callParent();
 	},
 	

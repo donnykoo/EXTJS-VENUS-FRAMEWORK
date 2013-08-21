@@ -1,8 +1,9 @@
 ﻿Ext.define('Module.pos.product.model.Product', {
     extend: 'Ext.data.Model',
-    fields: ['Id', 'Version', 'Active', 'LastUpdate', 'SKU', 'UPC', 'Name', 'Producer', 'PlaceOfProduction', 'SupplierCode', 'SupplierName', 'ProductType',
+    fields: ['Id', 'Version', 'Active', 'LastUpdate', 'SKU', 'UPC', 'Name', 'Producer', 'PlaceOfProduction', 
+			'SupplierCode', 'SupplierName', 'ProductType',
             'ProductName', 'BrandName', 'Model', 'UOMName', 'ProductCategory', 'Description', 'Discard',
-            'Color', 'Icon', 'Consignment', 'PurchasePrice', 'SuggestedPrice', 'ServiceNumber', 'IsDiy',
+            'Color', 'Icon', 'Consignment', 'SuggestedPrice', 'ServiceNumber', 'IsDiy',
             'Dimension', 'GrossWeight', 'Capacity', 'CapacityUOM', 'PackageUnit', 'LoadIndex', 'SpeedGrade',
             'TreadWidth', 'AspectRatio', 'RimDiameter', 'CrossSection', 'Flat', 'Eccentricity', 'BoltHoleNumber',
             'CenterCore', 'PCD', 'ERPCode', 'MaterialUsages', 'VehicleModel'],

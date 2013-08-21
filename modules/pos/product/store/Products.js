@@ -2,6 +2,6 @@
     extend: 'Ext.data.Store',
     requires: 'Module.pos.product.model.Product',
     model: 'Module.pos.product.model.Product',
-    autoLoad: false,
+    autoLoad: true,
     pageSize: basket.pageSize
 });

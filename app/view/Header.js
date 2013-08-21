@@ -8,8 +8,9 @@ Ext.define('App.view.Header', {
     },
 
 	data: {
-		UserName: '用户',
-		Avatar: 'resources/images/avatar.jpg'
+		UserName: '',
+		Avatar: 'resources/images/avatar.jpg',
+		NeedLogin: true
 	},
 	
 	tpl: [
@@ -17,8 +18,19 @@ Ext.define('App.view.Header', {
 		'<table width="100%" cellspacing="0" cellpadding="0">',
 		'<tr><td>{UserName}</td>',
 		'<td rowspan="2" width="5" >&nbsp;</td>',
-		'<td rowspan="2" ><img width=40 height=40 src="resources/images/avatar.jpg"/></td></tr>',
-		'<tr><td><a href="' + basket.contextPath + 'account/logoff">LOG OUT</a></td></tr>',
+		'<td rowspan="2" >',
+		'<tpl if="Avatar">',
+		'<img width=40 height=40 src="{Avatar}"/></td></tr>',
+		'<tpl else>',
+		'<img width=40 height=40 src="resources/images/avatar.jpg"/></td></tr>',
+		'</tpl>',
+		'<tr><td>',
+		'<tpl if="NeedLogin">',
+		'<a href="#">LOG IN</a>',
+		'<tpl else>',
+		'<a href="' + basket.contextPath + 'account/logoff">LOG OUT</a>',
+		'</tpl>',
+		'</td></tr>',
 		'</table>',
 		'</div>'
 	]

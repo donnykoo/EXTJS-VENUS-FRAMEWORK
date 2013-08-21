@@ -9,7 +9,7 @@ Ext.define('Module.pos.service.store.Steps', {
         reader: {
             type: 'xml',
 			record: 'Step',
-            root: 'elements',                            
+            root: 'elements'                            
 		}    
     }
 });

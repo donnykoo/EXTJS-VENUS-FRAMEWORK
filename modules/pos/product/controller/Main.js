@@ -6,7 +6,7 @@
         'Module.pos.product.store.Materials'
     ],
 
-    models: ['Module.pos.product.model.Product'],
+    models: ['Module.pos.product.model.Product', 'Module.pos.product.model.Material'],
 
     refs: [{
         ref: 'contentPanel',
@@ -22,13 +22,7 @@
         me.control({
             'productMainView': {
                 afterrender: function (cmp) {
-                    /**
-                        me.mon(cmp.getGrid().getEl(), {
-                            click: me.onAnchorClick,
-                            scope: me,
-                            delegate: 'a'
-                        });
-                        */
+                    
                 },
                 added: function (cmp, container, pos, eOpts) {
 
@@ -38,7 +32,7 @@
     },
 
     onAnchorClick: function (event, target, eOpts) {
-        alert(event);
+        
     },
 
     beforeLaunch: function (appliation) {

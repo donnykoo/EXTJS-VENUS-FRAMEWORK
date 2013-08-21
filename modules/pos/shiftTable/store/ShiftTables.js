@@ -4,10 +4,12 @@ Ext.define('Module.pos.shiftTable.store.ShiftTables', {
     model: 'Module.pos.shiftTable.model.ShiftTable',
     proxy: {
         type: 'ajax',
-        url: '/ShiftTables/Store?store=' + Ext.urlDecode(location.search.substring(1)).store,
+        url: Ext.String.format('{0}/ShiftTables?$inlinecount=allpages',basket.dataSource),
         reader: {
             type: 'json',
-            root: 'shift',
+            root: 'value',
+	    totalProperty:'odata.count',
+	    useSimpleAccessors:true
         }
     },
 	autoLoad: true,

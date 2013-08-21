@@ -32,6 +32,11 @@ Ext.application({
         'Module'	:	'modules'
     },
 	
+	refs : [{
+        ref: 'headerView',
+        selector: 'headerview'
+    }],
+	
     autoCreateViewport: true,
 
     controllers: [
@@ -107,24 +112,34 @@ Ext.application({
     },
 	
 	onAjaxRequestComplete: function(conn, response, options, eOpts){
+		var me = this;
 		Ext.Logger.debug("-> Ext.Ajax.request completion");
+		var masked = Ext.getBody().hasCls("x-masked");
+		Ext.Logger.debug("The body is masked? " + masked);
 	},
 	
 	/***
 	* In any ajax request exception we catch it and translate it rethrow to application
 	*/
 	onAjaxRequestException: function(conn, response, options, eOpts){
+		var me = this;
 		Ext.Logger.debug("-> Ext.Ajax.request exception with status code : " + response.status);
+		
+		
 		if(response.status === 400){ //Bad Request
 		
 		}else if(response.status === 401){	//Unauthorized
-			if(!splashscreen.isVisible()){
+			me.fireEvent("authFailed");
+		/*
+			if(splashscreen && !splashscreen.isVisible()){
 				var loginMask = new Ext.LoadMask(Ext.getBody(),  
 				{
 					msg: "<div><form><input type='password' name='UserName' /></form></div>"
 				});
 				loginMask.show();
 			}
+			*/
+			
 		}else if(response.status === 403){ //Forbidden
 			
 		}else if(response.status === 404){ //Page not found

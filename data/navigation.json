@@ -48,9 +48,7 @@
 	{
 		name: '系统', 
 		modules: [
-			{
-				name: '事务监控', module: 'pos.system.transaction'
-			}
+			
 		]
 	}
 ]
