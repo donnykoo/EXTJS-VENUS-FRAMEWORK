@@ -110,10 +110,6 @@
 			    xtype: 'button',
 			    itemId: 'modify-btn',
 			    text: '修改排班表'
-			}, '-', {
-			    xtype: 'button',
-			    itemId: 'test-btn',
-                text:'test',
 			}]
 		}];
 		

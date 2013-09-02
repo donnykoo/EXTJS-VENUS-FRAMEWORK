@@ -40,24 +40,9 @@ Ext.define('Module.pos.shiftTable.controller.Main', {
 
             'shiftTableMainView gridpanel #modify-btn': {
                 click: me.onModifyButtonClicked
-            },
-
-            'shiftTableMainView gridpanel #test-btn': {
-                click: me.onTestButtonClicked
             }
         });
 
-    },
-
-    onTestButtonClicked: function (btn, event, eOpts) {
-        Ext.Ajax.request({
-            url: '/ShiftTable/Test',
-            success: function (response) {
-                var text = response.responseText;
-                //alert(text);
-                // process server response here
-            }
-        });
     },
 
     onExportButtonClicked: function (btn, event, eOpts) {
@@ -68,7 +53,7 @@ Ext.define('Module.pos.shiftTable.controller.Main', {
                 fieldLabel: 'Date',
                 format: 'Y-m-d',
                 value: Ext.Date.format(new Date(), 'Y-m-d'),
-                maxValue: new Date(),
+                //maxValue: new Date(),
             }],
             buttons: [{
                 text: 'Submit',
@@ -109,7 +94,7 @@ Ext.define('Module.pos.shiftTable.controller.Main', {
                     fieldLabel: 'Date',
                     format: 'Y-m-d',
                     value: Ext.Date.format(new Date(), 'Y-m-d'),
-                    maxValue: new Date(),
+                    //maxValue: new Date(),
                 }],
                 buttons: [{
                     text: 'Upload',
