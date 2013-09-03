@@ -1,4 +1,4 @@
 Ext.define('Module.pos.shiftTable.model.ShiftTable', {
     extend: 'Ext.data.Model',
-    fields: ['id', 'store', 'sort_index', 'active', 'create_by', 'update_by', 'created_at', 'updated_at', 'Instance', 'staffNumber', 'staffName', 'role', 'roleName', 'startTime', 'endTime'],
+    fields: ['Id', 'Version','Store', 'SortIndex', 'Active', 'CreateBy', 'UpdateBy', 'CreateDate', 'LastUpdate', 'StaffNumber', 'StaffName', 'Role', 'RoleName', 'Day','StartTime', 'EndTime'],
 });
