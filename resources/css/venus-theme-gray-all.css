@@ -317,3 +317,10 @@ ul, ul ul {
 .ux-navi-refresh-btn {
 	background-image: url('../icons/metro/refresh.png') !important;
 }
+.ux-window-close-btn
+{
+	background-image: url('../icons/button/MB_0019_shut-down.png') !important;
+	width:24px!important;
+	height:24px!important;
+	color:#fff;
+}

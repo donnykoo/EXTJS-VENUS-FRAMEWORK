@@ -33,6 +33,9 @@
 			}, 
 			{
 				name: '库存管理', module: 'pos.inventory' 
+			},
+			{
+				name: '入库单', module: 'pos.inventoryMoveIn' 
 			}
 		]
 	}, 
