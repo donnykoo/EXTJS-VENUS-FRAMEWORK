@@ -84,12 +84,12 @@
 			anchor: '98% 98%',
 			margin: '10 5 5 10',
 			columns: [
-				{ text: 'StaffName', dataIndex: 'staffName', width: 100 },
-				{ text: 'StaffNumber', dataIndex: 'staffNumber', flex: 1 },
-				{ text: 'Role', dataIndex: 'role', width: 160 },
-                { text: 'RoleName', dataIndex: 'roleName', width: 160 },
-				{ text: 'Start Time', dataIndex: 'startTime', width: 160 },
-				{ text: 'End Time', dataIndex: 'endTime', width: 160 }
+				{ text: 'StaffName', dataIndex: 'StaffName', width: 100 },
+				{ text: 'StaffNumber', dataIndex: 'StaffNumber', flex: 1 },
+				{ text: 'Role', dataIndex: 'Role', width: 160 },
+                { text: 'RoleName', dataIndex: 'RoleName', width: 160 },
+				{ text: 'Start Time', dataIndex: 'StartTime', width: 160 },
+				{ text: 'End Time', dataIndex: 'EndTime', width: 160 }
 			],
 			dockedItems: [{
 				xtype: 'pagingtoolbar',
@@ -110,10 +110,6 @@
 			    xtype: 'button',
 			    itemId: 'modify-btn',
 			    text: '修改排班表'
-			}, '-', {
-			    xtype: 'button',
-			    itemId: 'test-btn',
-                text:'test',
 			}]
 		}];
 		
