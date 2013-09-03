@@ -12,7 +12,8 @@
 			}, 
 			{name: '工位查询', module: 'pos.bay'}, 
 			{name: '员工查询', module: 'pos.staff' },
-			{name: '设备注册表', module: 'pos.hardwareRegistry' }
+			{name: '设备注册表', module: 'pos.hardwareRegistry' },
+			{name: '库存查询', module: 'pos.inventory'}
 		]
 	}, 
 	{
@@ -48,9 +49,7 @@
 	{
 		name: '系统', 
 		modules: [
-			{
-				name: '事务监控', module: 'pos.system.transaction'
-			}
+			
 		]
 	}
 ]

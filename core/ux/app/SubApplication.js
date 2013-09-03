@@ -245,7 +245,6 @@ Ext.define('Ext.app.SubApplication', {
         Ext.apply(script, {
             src  : file,
             type : 'text/javascript',
-
             onload : Ext.Function.createDelayed(me.handleFileLoad, me.removeJSFileDelay, me, [script]),
             onreadystatechange : function() {
                 if (this.readyState === 'loaded' || this.readyState === 'complete') {
@@ -263,7 +262,7 @@ Ext.define('Ext.app.SubApplication', {
 		script.onload = null;
         script.onreadystatechange = null;
         script.onerror = null;
-
+		
         var me       = this;
 		
 		if(me.loadMask){
@@ -272,6 +271,7 @@ Ext.define('Ext.app.SubApplication', {
 	},
 	
     handleFileLoad: function(script) {
+		
         script.onload = null;
         script.onreadystatechange = null;
         script.onerror = null;
@@ -279,6 +279,7 @@ Ext.define('Ext.app.SubApplication', {
         var me       = this,
             loadedJS = me.loadedJS;
 
+		
         loadedJS.add(Ext.get(script));
 
         me.checkJSDependencyState();
@@ -309,7 +310,6 @@ Ext.define('Ext.app.SubApplication', {
             delete controller.name;
 
             controller.id = controller.id || name;
-
             controller = Ext.create(name, controller);
         }
 

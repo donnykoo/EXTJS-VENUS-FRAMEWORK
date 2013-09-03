@@ -10,12 +10,28 @@ Ext.define('App.controller.Header', {
 				afterrender: me.onHeaderViewAfterRender
 			}
 		});
+		
+		me.application.on({
+			authFailed: me.onAuthFailed
+		});
     },
+	
+
 	
 	refs : [{
         ref: 'headerView',
         selector: 'headerview'
     }],
+	
+	onAuthFailed: function(){
+		var me = this,
+			header = me.getHeaderView();
+		header.update({
+			UserName: '',
+			Avatar: 'resources/images/avatar.jpg',
+			NeedLogin: true
+		});
+	},
 	
 	onLaunch: function(appliation){
 		

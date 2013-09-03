@@ -1,7 +1,7 @@
-Ext.define('Module.pos.service.store.Materials', {
+Ext.define('Module.pos.product.store.Materials', {
     extend: 'Ext.data.Store',
-    requires: 'Module.pos.service.model.Material',
-    model: 'Module.pos.service.model.Material',
+    requires: 'Module.pos.product.model.Material',
+    model: 'Module.pos.product.model.Material',
 	autoLoad: false,
 	data: '',
 	proxy: {

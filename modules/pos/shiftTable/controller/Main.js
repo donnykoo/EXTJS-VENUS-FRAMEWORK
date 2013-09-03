@@ -40,24 +40,9 @@ Ext.define('Module.pos.shiftTable.controller.Main', {
 
             'shiftTableMainView gridpanel #modify-btn': {
                 click: me.onModifyButtonClicked
-            },
-
-            'shiftTableMainView gridpanel #test-btn': {
-                click: me.onTestButtonClicked
             }
         });
 
-    },
-
-    onTestButtonClicked: function (btn, event, eOpts) {
-        Ext.Ajax.request({
-            url: '/ShiftTables/Test',
-            success: function (response) {
-                var text = response.responseText;
-                //alert(text);
-                // process server response here
-            }
-        });
     },
 
     onExportButtonClicked: function (btn, event, eOpts) {
@@ -68,7 +53,7 @@ Ext.define('Module.pos.shiftTable.controller.Main', {
                 fieldLabel: 'Date',
                 format: 'Y-m-d',
                 value: Ext.Date.format(new Date(), 'Y-m-d'),
-                maxValue: new Date(),
+                //maxValue: new Date(),
             }],
             buttons: [{
                 text: 'Submit',
@@ -79,7 +64,7 @@ Ext.define('Module.pos.shiftTable.controller.Main', {
 
                     var me = this;
                     var date = me.up().up().down('datefield').value;
-                    document.location = '/ShiftTables/Export?date=' + Ext.Date.format(new Date(date), 'Y-m-d') + "&store=" + params.store
+                    document.location = '/ShiftTable/Export?date=' + Ext.Date.format(new Date(date), 'Y-m-d') + "&store=" + params.store
                     me.up().up().hide();
                     //alert(Ext.Date.format(new Date(date), 'Y-m-d'))
                 }
@@ -109,7 +94,7 @@ Ext.define('Module.pos.shiftTable.controller.Main', {
                     fieldLabel: 'Date',
                     format: 'Y-m-d',
                     value: Ext.Date.format(new Date(), 'Y-m-d'),
-                    maxValue: new Date(),
+                    //maxValue: new Date(),
                 }],
                 buttons: [{
                     text: 'Upload',
@@ -121,7 +106,7 @@ Ext.define('Module.pos.shiftTable.controller.Main', {
                         var form = this.up('form').getForm();
                         if (form.isValid()) {
                             form.submit({
-                                url: '/ShiftTables/Import?date=' + Ext.Date.format(new Date(date), 'Y-m-d') + "&store=" + params.store,
+                                url: '/ShiftTable/Import?date=' + Ext.Date.format(new Date(date), 'Y-m-d') + "&store=" + params.store,
                                 waitMsg: 'Uploading your excel...',
                                 success: function (fp, o) {
                                     Ext.Msg.alert('Status', 'upload success.');
@@ -139,7 +124,7 @@ Ext.define('Module.pos.shiftTable.controller.Main', {
     },
 
     onModifyButtonClicked: function (btn, event, eOpts) {
-        document.location = '/ShiftTables/Modify?store=' + Ext.urlDecode(location.search.substring(1)).store;
+        document.location = '/ShiftTable/Modify?store=' + Ext.urlDecode(location.search.substring(1)).store;
         //Ext.Ajax.request({
         //    url: '/ShiftTables/Modify?store=' + Ext.urlDecode(location.search.substring(1)).store,
         //    success: function (response) {
