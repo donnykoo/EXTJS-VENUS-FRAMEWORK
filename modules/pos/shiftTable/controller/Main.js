@@ -57,14 +57,10 @@ Ext.define('Module.pos.shiftTable.controller.Main', {
             }],
             buttons: [{
                 text: 'Submit',
-                handler: function () {
-
-                    var params = Ext.urlDecode(location.search.substring(1));
-                    //alert(params.store);
-
+                handler: function () {                    
                     var me = this;
                     var date = me.up().up().down('datefield').value;
-                    document.location = '/ShiftTable/Export?date=' + Ext.Date.format(new Date(date), 'Y-m-d') + "&store=" + params.store
+                    document.location = '/ShiftTable/Export?date=' + Ext.Date.format(new Date(date), 'Y-m-d');
                     me.up().up().hide();
                     //alert(Ext.Date.format(new Date(date), 'Y-m-d'))
                 }
@@ -100,13 +96,13 @@ Ext.define('Module.pos.shiftTable.controller.Main', {
                     text: 'Upload',
                     handler: function () {
                         var me = this;
-                        var params = Ext.urlDecode(location.search.substring(1));
+                      
                         var date = me.up().up().down('datefield').value;
 
                         var form = this.up('form').getForm();
                         if (form.isValid()) {
                             form.submit({
-                                url: '/ShiftTable/Import?date=' + Ext.Date.format(new Date(date), 'Y-m-d') + "&store=" + params.store,
+                                url: '/ShiftTable/Import?date=' + Ext.Date.format(new Date(date), 'Y-m-d') ,
                                 waitMsg: 'Uploading your excel...',
                                 success: function (fp, o) {
                                     Ext.Msg.alert('Status', 'upload success.');
@@ -124,7 +120,7 @@ Ext.define('Module.pos.shiftTable.controller.Main', {
     },
 
     onModifyButtonClicked: function (btn, event, eOpts) {
-        document.location = '/ShiftTable/Modify?store=' + Ext.urlDecode(location.search.substring(1)).store;
+        document.location = '/ShiftTable/Modify' ;
         //Ext.Ajax.request({
         //    url: '/ShiftTables/Modify?store=' + Ext.urlDecode(location.search.substring(1)).store,
         //    success: function (response) {
