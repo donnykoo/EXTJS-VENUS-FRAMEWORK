@@ -1,7 +1,7 @@
 ﻿Ext.define('Module.pos.inventoryMoveIn.model.InventoryMoveIn', {
     extend: 'Ext.data.Model',
     fields: ['Id', 'Version', 'Active', 'LastUpdate', 'UpdateBy', 'CreateDate', 'CreateBy', 'IdNumber',
-            'Status', 'VirtualStock', 'StaffNumber', 'Confirmed', 'MoveInType','Lines','InventoryMoveLineJsonString'],
+            'Status', 'VirtualStock', 'StaffNumber', 'MoveInType', 'Lines'],
     idProperty: 'Id',
     proxy: {
         type: 'ajax',
