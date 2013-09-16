@@ -36,8 +36,8 @@ Ext.define('Module.pos.staff.view.Main', {
 			gridConfig: {
 
 			},
-			store: Ext.data.StoreManager.lookup('Module.pos.staff.store.Staffs'),
-			columns: [
+			store: me.store ? me.store : Ext.data.StoreManager.lookup('Module.pos.staff.store.Staffs'),
+			columns: me.columns ? me.columns :[
 				{ text: '姓名', dataIndex: 'Name', width: 100 },
 				{ text: '员工号',  dataIndex: 'StaffNumber', width: 200 },
 				{ text: 'RFID卡号', dataIndex: 'RFCardNumber', width: 200 }

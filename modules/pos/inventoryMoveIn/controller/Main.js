@@ -31,6 +31,9 @@
             },
 			'inventoryMoveInMainView gridpanel #create-btn': {
                 click: me.onCreateButtonClicked
+            },
+			'inventoryMoveInMainView gridpanel': {
+				itemdblclick: me.onItemDblClicked
             }
         });
 		
@@ -42,6 +45,16 @@
 			createWindow = me.getInventoryMoveInMainView().getCreateWindow();
 			
 		createWindow.showAt(contentView.getX() + 20, contentView.getY() + 10);
+	},
+	
+	onItemDblClicked: function(grid, record, item, index, e, eOpts ){
+		var me = this,
+			contentView = me.getContentPanel(),
+			createWindow = me.getInventoryMoveInMainView().getCreateWindow();
+		
+		createWindow.setObjectId(record.get("Id"));
+		createWindow.showAt(contentView.getX() + 20, contentView.getY() + 10);
+		
 	},
 	
     beforeLaunch: function (appliation) {

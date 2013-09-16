@@ -43,54 +43,45 @@ Ext.define('Module.pos.inventoryMoveIn.view.Main', {
 					xtype: 'button',
 					itemId: 'create-btn',
 					text: '创建'
-				}, '-', {
-					xtype: 'button',
-					itemId: 'cancel-btn',
-					text: '取消'
 				}]
             },
             store: Ext.data.StoreManager.lookup('Module.pos.inventoryMoveIn.store.InventoryMoveIns'),
             columns: [
-                { text: '入库单号', dataIndex: 'IdNumber', width: 120 },
+				{xtype: 'rownumberer'},
+                { text: '入库单号', dataIndex: 'IdNumber', width: 160 },
                 {
                     text: '入库类型', dataIndex: 'MoveInType', width: 100,
                     renderer:function(value) {
-                        if (value == 'Purchase') {
+                        if (value === 'Purchase') {
                             return '采购';
-                        } else if (value == 'Allot') {
+                        } else if (value === 'Transfer') {
                             return '调拨';
-                        } else if (value == 'Returns') {
+                        } else if (value === 'Return') {
                             return '退货';
-                        } else if (value == 'Adjust') {
+                        } else if (value === 'Adjust') {
                             return '调整';
-                        } else if (value == 'ReMaterial') {
-                            return '退料';
-                        }
+                        } 
                     }
                 },
-                { text: '虚拟库', dataIndex: 'VirtualStock', width: 60 },
-                { text: '员工编号', dataIndex: 'StaffNumber', width: 80 },
-                { text: '创建日期', dataIndex: 'CreateDate', width: 80, xtype: 'datecolumn', format: 'Y-m-d' },
+                { text: '虚拟库', dataIndex: 'VirtualStock', width: 120 },
+                { text: '申请人工号', dataIndex: 'Requestor', width: 120 },
+                { text: '创建日期', dataIndex: 'CreateDate', width: 160, xtype: 'datecolumn', format: 'Y-m-d H:i:j' },
                 {
                     text: '状态',
                     dataIndex: 'Status',
                     width: 60,
                     renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                        if (value == 'Pending') {
+                        if (value === 0) {
                             return '草稿';
-                        } else if (value == 'Completed') {
-                            return '已提交';
-                        } else if (value == 'Cancelled') {
-                            return '已取消';
-                        } else if (value == 'Closed') {
+                        } else if (value === 1) {
+                            return '已完成';
+                        } else if (value === 2) {
                             return '已确认';
+                        } else if (value === 3) {
+                            return '已作废';
                         }
                         return value;
                     }
-                }, {
-                    header: '',
-                    width: 200,
-                    resizable: false
                 }
             ]
         });

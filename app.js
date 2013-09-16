@@ -27,7 +27,10 @@ Ext.application({
     name: 'App',
 
 	paths	: {
-        'Ext.ux'	:	'core/ux',
+		'Ext.ux'	:	'core/ux',
+        'Ext.ux.view'	:	'core/ux/view',
+		'Ext.ux.field'	:	'core/ux/field',
+		'Ext.ux.plugins'	:	'core/ux/plugins',
         'Ext.app'	:	'core/ux/app',
         'Module'	:	'modules'
     },
@@ -51,21 +54,23 @@ Ext.application({
 		// Setup a task to fadeOut the splashscreen
         var task = new Ext.util.DelayedTask(function() {
             // Fade out the body mask
-            splashscreen.fadeOut({
-                duration: 1000,
-                remove:true
-            });
-            // Fade out the icon and message
-            splashscreen.next().fadeOut({
-                duration: 1000,
-                remove:true,
-                listeners: {
-                    afteranimate: function() {
-                        // Set the body as unmasked after the animation
-                        Ext.getBody().unmask();
-                    }
-                }
-            });
+			if(splashscreen && splashscreen.id){
+				splashscreen.fadeOut({
+					duration: 1000,
+					remove:true
+				});
+				// Fade out the icon and message
+				splashscreen.next().fadeOut({
+					duration: 1000,
+					remove:true,
+					listeners: {
+						afteranimate: function() {
+							// Set the body as unmasked after the animation
+							Ext.getBody().unmask();
+						}
+					}
+				});
+			}
         });
         // Run the fade 500 milliseconds after launch.
         task.delay(500);
@@ -116,21 +121,39 @@ Ext.application({
 		Ext.Logger.debug("-> Ext.Ajax.request completion");
 		var masked = Ext.getBody().hasCls("x-masked");
 		Ext.Logger.debug("The body is masked? " + masked);
+		if(masked){
+			Ext.getBody().unmask();
+		}
+		
 	},
 	
 	/***
 	* In any ajax request exception we catch it and translate it rethrow to application
 	*/
 	onAjaxRequestException: function(conn, response, options, eOpts){
-		var me = this;
+		var me = this,
+			statusBar = Ext.getCmp('app-status');
+		
 		Ext.Logger.debug("-> Ext.Ajax.request exception with status code : " + response.status);
 		
+		var masked = Ext.getBody().hasCls("x-masked");
+		Ext.Logger.debug("The body is masked? " + masked);
+		if(masked){
+			Ext.getBody().unmask();
+		}
 		
 		if(response.status === 400){ //Bad Request
-		
+			statusBar.setStatus({
+				text: Ext.String.format('ERROR - 400 Bad Request - {0}', response.responseText),
+				clear: true
+			});
 		}else if(response.status === 401){	//Unauthorized
 			me.fireEvent("authFailed");
-		/*
+			statusBar.setStatus({
+				text: Ext.String.format('ERROR - 401 Unauthorized - {0}', response.responseText),
+				clear: true
+			});
+			/*
 			if(splashscreen && !splashscreen.isVisible()){
 				var loginMask = new Ext.LoadMask(Ext.getBody(),  
 				{
@@ -139,13 +162,22 @@ Ext.application({
 				loginMask.show();
 			}
 			*/
-			
+			statusBar.setStatus();
 		}else if(response.status === 403){ //Forbidden
-			
+			statusBar.setStatus({
+				text: Ext.String.format('ERROR - 403 Forbidden - {0}', response.responseText),
+				clear: true
+			});
 		}else if(response.status === 404){ //Page not found
-			
+			statusBar.setStatus({
+				text: Ext.String.format('ERROR - 404 Page not found - {0}', response.responseText),
+				clear: true
+			});
 		}else if(response.status === 500){ //Internal Server Error
-		
+			statusBar.setStatus({
+				text: Ext.String.format('ERROR - 500 Internal Server Error - {0}', response.responseText),
+				clear: true
+			});
 		}
 	}
 });
