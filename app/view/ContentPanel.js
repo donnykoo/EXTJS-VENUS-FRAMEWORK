@@ -7,10 +7,18 @@ Ext.define('App.view.ContentPanel', {
         me.callParent();
     },
 	
-	bbar: Ext.create('Ext.toolbar.Toolbar', {
+	bbar: Ext.create('Ext.ux.statusbar.StatusBar', {
+        id: 'app-status',
 		height: 36,
-		items: [
-			
-		]
-	})
+        // defaults to use when the status is cleared:
+        defaultText: 'Ready',
+        defaultIconCls: 'default-icon',
+
+        // values to set initially:
+        text: 'Ready',
+        iconCls: 'ready-icon',
+
+        // any standard Toolbar items:
+        items: []
+    })
 });

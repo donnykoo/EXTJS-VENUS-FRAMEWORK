@@ -3,7 +3,10 @@ Ext.require([
 	'Ext.ux.field.TextTriggerField',
 	'Ext.ux.field.NumericField',
 	'Module.pos.product.view.Main',
-	'Ext.ux.plugins.PanelHeaderExtraIcons'
+	'Ext.ux.plugins.PanelHeaderExtraIcons',
+	'Module.pos.virtualStock.view.Main',
+	'Module.pos.staff.store.Staffs',
+	'Module.pos.staff.view.Main'
 ]);
 
 Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
@@ -11,11 +14,12 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 	alias: 'widget.inventoryMoveInCreateWindow',
 	height: 540,
 	width: 800,
+	modal: true,
 	header: {
 		height: 36
 	},
 	border: false,
-	title: '新建入库单',
+	title: '入库单',
 	layout: 'border',
 	closable: false,
 	closeAction: 'hide',
@@ -24,18 +28,63 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 	form: false,
 	create: true,
 	objectId: 0, 
+	objectVersion: 0,
+	objectData: {},
+	
+	scanBuffer: [],
+	
+	//Should have one record field
+	
+	apiPath: Ext.String.format('{0}/api/InventoryMoveInsApi', "/" === basket.contextPath ? "" : basket.contextPath),
 	
 	initComponent: function() {
         var me = this;
 		me.plugins = [{
 			ptype: 'headericons',
+			pluginId: 'headerbuttons',
 			headerButtons: [{
 				xtype: 'button',
-				text: 'Close',
+				itemId: 'saveButton',
+				disabled: true,
+				text: '保存',
 				height: 30,
 				width: 60,
 				scope: this,
-				handler: this.onSave
+				handler: this.onSaveClicked
+			}, {
+				xtype: 'button',
+				itemId: 'completeButton',
+				text: '完成收货',
+				disabled: true,
+				height: 30,
+				width: 60,
+				scope: this,
+				handler: this.onCompleteClicked
+			},{
+				xtype: 'button',
+				itemId: 'confirmButton',
+				text: '确认收货',
+				disabled: true,
+				height: 30,
+				width: 60,
+				scope: this,
+				handler: this.onConfirmClicked
+			},{
+				xtype: 'button',
+				itemId: 'cancelButton',
+				text: '作废',
+				disabled: true,
+				height: 30,
+				width: 60,
+				scope: this,
+				handler: this.onCancelClicked
+			},{
+				xtype: 'button',
+				text: '关闭窗口',
+				height: 30,
+				width: 60,
+				scope: this,
+				handler: this.onCloseClicked
 			}]
 		}];
 		var form = me.form = Ext.create('Ext.form.Panel', {
@@ -46,7 +95,6 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 				margin: '5 5 5 10',
 				labelWidth: 160,
 				msgTarget: 'under'
-				
 			},
 			defaults: {
 				border: false,
@@ -64,18 +112,55 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 						fieldLabel: '单号',
 						anchor: '-5',
 						name: 'IdNumber',
+						submitValue: false,
 						readOnly: true,
 						tabIndex: 1,
 						emptyText: '系统自动生成'
 					},{
-						xtype: 'textfield',
-						fieldLabel: '制单人',
-						emptyText: '当前登录用户',
-						readOnly: true,
+						xtype: 'ux.field.TextTriggerField',
+						fieldLabel: '申请人',
 						tabIndex: 3,
 						anchor: '-5',
-						submitValue: false,
-						name: 'Operator'
+						name: 'Requestor',
+						filterName: 'StaffNumber',
+						allowBlank: false,
+						displayProps: ['Name'],
+						store: Ext.create('Module.pos.staff.store.Staffs', { }),
+						windowConfig: {
+							height: 420,
+							width: 680,
+							searchPanelType: 'staffMainView'
+						},
+						itemSelected: function(window, innerGrid, record, item, index, e, eOpts){
+							var me = this, 
+								code = record.get("StaffNumber");
+							
+							me.setBackRecord(record);
+							me.setValue(code);
+						}
+					},{
+						xtype: 'textfield',
+						fieldLabel: '原始单证编号',
+						anchor: '-5',
+						name: 'RefNumber',
+						tabIndex: 5,
+						emptyText: '如采购单、调拨单号'
+					},{
+						xtype: 'hidden',
+						fieldLabel: 'ID',
+						anchor: '-5',
+						name: 'Id',
+						readOnly: true,
+						tabIndex: 0,
+						value: 0
+					},{
+						xtype: 'hidden',
+						fieldLabel: 'Version',
+						anchor: '-5',
+						name: 'Version',
+						readOnly: true,
+						tabIndex: 0,
+						value: 0
 					}]
 				},
 				{
@@ -92,10 +177,10 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 						store:  Ext.create('Ext.data.Store', {
 							fields: ['key', 'value'],
 							data : [
-								{"key": 0, "value":"采购收货"},
-								{"key": 1, "value":"调拨收货"},
-								{"key": 2, "value":"退货入库"},
-								{"key": 3, "value":"调整入库"}
+								{"key": "0", "value":"采购收货"},
+								{"key": "1", "value":"调拨收货"},
+								{"key": "2", "value":"退货入库"},
+								{"key": "3", "value":"调整入库"}
 							]
 						})
 					},{
@@ -104,21 +189,29 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 						tabIndex: 4,
 						anchor: '100%',
 						name: 'VirtualStock',
-						filterName: 'SKU',
+						filterName: 'IdNumber',
 						allowBlank: false,
 						displayProps: ['Name'],
-						store: Ext.create('Module.pos.product.store.Products', { }),
+						store: Ext.create('Module.pos.virtualStock.store.VirtualStocks', { }),
 						windowConfig: {
-							searchPanelType: 'productMainView'
+							height: 420,
+							width: 680,
+							searchPanelType: 'virtualStockMainView'
 						},
-						columns: [
-							{ text: 'SKU', dataIndex: 'SKU', width: 100 },
-							{ text: '商品全名', dataIndex: 'Name', width: 300 },
-							{ text: 'UPC', dataIndex: 'UPC', width: 120 },
-							{ text: '商品类别', dataIndex: 'ProductType', width: 100 },
-							{ text: 'UOM', dataIndex: 'UOMName', width: 100 },
-							{ text: '商品分类', dataIndex: 'ProductCategory', width: 100 }
-						]
+						itemSelected: function(window, innerGrid, record, item, index, e, eOpts){
+							var me = this, 
+								code = record.get("IdNumber");
+							
+							me.setBackRecord(record);
+							me.setValue(code);
+						}
+					},{
+						xtype: 'textfield',
+						fieldLabel: '物流单编号',
+						anchor: '100%',
+						name: 'LogisticOrderNumber',
+						tabIndex: 6,
+						emptyText: ''
 					}]
 				}
 			]
@@ -150,18 +243,32 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 				items: [{
 					text: '新增',
 					scope : this,
-					handler: me.onCreateClick
+					handler: me.onAddLineClick
 				},'-',{
 					text: '删除',
 					scope : this,
-					handler: me.onDeleteClick
+					handler: me.onDeleteLineClick
 				}]
 			}],
 			columns: [
 				{ text: 'SKU',  dataIndex: 'SKU', width: 160, 
 					editor: {
 						xtype:'ux.field.TextTriggerField',
-						store: Ext.create('Module.pos.product.store.Products', { }),
+						store: Ext.create('Module.pos.product.store.Products', { 
+							listeners: {
+								beforeload: function(store, operation, eOpts){
+									var filter = " ProductType eq 'Material' ";
+									
+									if(operation && operation.params && operation.params['$filter']){
+										filter = Ext.String.format("{0} and {1}", filter, operation.params['$filter']);
+									}
+									
+									operation.params = Ext.apply(operation.params ? operation.params : {}, {
+										'$filter': filter
+									});
+								}
+							}
+						}),
 						windowConfig: {
 							height: 420,
 							width: 680,
@@ -232,7 +339,11 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 		return this.grid;
 	},
 	
-	onCreateClick: function(btn, event, eOpts){
+	getForm: function(){
+		return this.form;
+	},
+	
+	onAddLineClick: function(btn, event, eOpts){
 		var me = this,
 			store = this.getStore();
 		if(store){
@@ -246,7 +357,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 		}
 	},
 	
-	onDeleteClick : function(btn, event, eOpts){
+	onDeleteLineClick : function(btn, event, eOpts){
 		var me = this,
 			grid = this.getGrid(),
 			store = this.getStore()
@@ -282,8 +393,399 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 		}
 	},
 	
-	onSave: function(button, evet){
+	getObjectId: function(){
+		return this.objectId;
+	},
+	setObjectId: function(id){
+		this.objectId = id;
+	},
+	getObjectVersion: function(){
+		return this.objectVersion;
+	},
+	setObjectVersion: function(version){
+		this.objectVersion = version;
+	},
+	getObjectData: function(){
+		return this.objectData;
+	},
+	setObjectData: function(data){
+		this.objectData = data;
+	},
+
+	
+	getSubmitValues: function(){
+		var me = this,
+			form = me.getForm(),
+			grid = me.getGrid(),
+			store = grid.getStore();
+		if(!form.isValid()){
+			return false;
+		}
+		
+		var submitValues = form.getValues(false);
+		
+		var modified = store.getRange(); //seems, only return valid record
+		
+		var isValid = true;
+		var invalidIndex = 0;
+		var records = [];
+		Ext.each(modified, function(record, index, thisCollection){
+			
+			if(record.isValid() === true){
+				records.push(record.getData());
+			}else{
+				isValid = false;
+				invalidIndex = index;
+				return false;
+			}
+		});
+		
+		if(!isValid){
+			grid.getView().focusRow(invalidIndex); 
+			return false;
+		}
+		
+		
+		var submitObj = Ext.apply(me.objectData, submitValues);
+		submitObj = Ext.apply(submitObj, {
+			Lines: records
+		});
+		
+		
+		return submitObj;
+	},
+	
+	onSaveClicked: function(button, evet){
+		var me = this;
+		var submitValues = me.getSubmitValues();
+		
+		if(!submitValues){
+			return;
+		}
+		
+		var onBeforeRequest = function(conn, options, eOpts){
+			Ext.getBody().mask('请求提交中......');
+			Ext.Ajax.un('beforerequest', onBeforeRequest, this);
+		};
+		
+		Ext.Ajax.on({
+			beforerequest: onBeforeRequest,
+			scope: this
+		});
+		
+		Ext.Ajax.request({
+			url: me.apiPath,
+			method: me.getObjectId() > 0 ? 'PUT' : 'POST',
+			jsonData: submitValues,
+			success: function(response, opts) {
+				var obj = Ext.decode(response.responseText);
+				var location = response.getResponseHeader('Location');
+				Ext.Logger.debug("Resource Location : " + location);
+				Ext.Logger.dir(obj);
+				
+				this.refresh(obj);
+			},
+			failure: function(response, opts) {
+				Ext.Logger.warn('server-side failure with status code ' + response.status);
+			},
+			scope: this
+		});
+	},
+	
+	onCloseClicked: function(button, event){
 		var me = this;
 		me.close();
+	},
+	
+	onCompleteClicked: function(button, event){
+	
+		var me = this;
+		
+		Ext.Msg.confirm('确认', '您是否确认完成入库?', 
+			function(btn, text){
+				if (btn == 'ok' || btn == 'yes' || btn == '确定'){
+					Ext.Ajax.request({
+						url: Ext.String.format("{0}/{1}/Complete", me.apiPath, me.objectId),
+						method: 'POST',
+						params: {
+							Id: me.getObjectId()
+						},
+						success: function(response, opts) {
+							var obj = Ext.decode(response.responseText);
+							var location = response.getResponseHeader('Location');
+							Ext.Logger.debug("Resource Location : " + location);
+							Ext.Logger.dir(obj);
+							
+							this.refresh(obj);
+						},
+						failure: function(response, opts) {
+							Ext.Logger.warn('server-side failure with status code ' + response.status);
+						},
+						scope: this
+					});
+				}
+			}, this);
+	},
+	
+	onConfirmClicked: function(button, event){
+		var me = this;
+		
+		Ext.Msg.confirm('确认', '您是否确认所有商品已正确入库?', 
+			function(btn, text){
+				if (btn == 'ok' || btn == 'yes' || btn == '确定'){
+					Ext.Ajax.request({
+						url: Ext.String.format("{0}/{1}/Confirm", me.apiPath, me.objectId),
+						method: 'POST',
+						params: {
+							Id: me.getObjectId()
+						},
+						success: function(response, opts) {
+							var obj = Ext.decode(response.responseText);
+							var location = response.getResponseHeader('Location');
+							Ext.Logger.debug("Resource Location : " + location);
+							Ext.Logger.dir(obj);
+							
+							this.refresh(obj);
+						},
+						failure: function(response, opts) {
+							Ext.Logger.warn('server-side failure with status code ' + response.status);
+						},
+						scope: this
+					});
+				}
+			}, this);
+	},
+	
+	onCancelClicked: function(button, event){
+		var me = this;
+		
+		Ext.Msg.confirm('确认', '您是否确定作废入库单?', 
+			function(btn, text){
+				if (btn == 'ok' || btn == 'yes' || btn == '确定'){
+					Ext.Ajax.request({
+						url: Ext.String.format("{0}/{1}/Cancel", me.apiPath, me.objectId),
+						method: 'POST',
+						params: {
+							Id: me.getObjectId()
+						},
+						success: function(response, opts) {
+							var obj = Ext.decode(response.responseText);
+							var location = response.getResponseHeader('Location');
+							Ext.Logger.debug("Resource Location : " + location);
+							Ext.Logger.dir(obj);
+							
+							this.refresh(obj);
+						},
+						failure: function(response, opts) {
+							Ext.Logger.warn('server-side failure with status code ' + response.status);
+						},
+						scope: this
+					});
+				}
+			}, this);
+	},
+	
+	refresh: function(data){
+		var me = this,
+			topWin = Ext.WindowMgr.getActive();
+		try{
+			this.setObjectId(data.Id);
+			this.setObjectVersion(data.Version);
+			this.setObjectData(data);
+			var record = Ext.create('Module.pos.inventoryMoveIn.model.InventoryMoveIn', data);
+			this.getForm().getForm().loadRecord(record);
+			this.getStore().loadData(data.Lines);
+			
+			
+			//Set status bar
+			var status = '';
+			if(record.get('Status') === 0){
+				status = '草稿';
+			}else if(record.get('Status') === 1){
+				status = '完成';
+			}else if(record.get('Status') === 2){
+				status = '已确认';
+			}else if(record.get('Status') === 3){
+				status = '已作废';
+			}
+			
+			me.setStatus({
+				text: status,
+				clear: {
+					wait: 8000,
+					anim: false,
+					useDefaults: false
+				}
+			});
+			
+			//re-config buttons
+			me.configHeader(record);
+		}finally{
+			topWin.setDisabled(false);
+		}
+	},
+	
+	configHeader: function(record){
+		var me = this;
+		if(record){
+			var plugin = me.getPlugin('headerbuttons'),
+				header = plugin.getHeader(),
+				saveBtn = header.getComponent('saveButton'),
+				completeBtn = header.getComponent('completeButton'),
+				confirmBtn = header.getComponent('confirmButton'),
+				cancelBtn = header.getComponent('cancelButton');
+			
+			
+			if(record.get('Status') == 0){	
+				//草稿
+				saveBtn.setDisabled(false);
+				completeBtn.setDisabled(false);
+				confirmBtn.setDisabled(true);
+				cancelBtn.setDisabled(false);
+			}else if(record.get('Status') == 1){
+				//完成
+				saveBtn.setDisabled(true);
+				completeBtn.setDisabled(true);
+				confirmBtn.setDisabled(false);
+				cancelBtn.setDisabled(false);
+			}else if(record.get('Status') == 2){
+				//已核实
+				saveBtn.setDisabled(true);
+				completeBtn.setDisabled(true);
+				confirmBtn.setDisabled(true);
+				cancelBtn.setDisabled(true);
+			}else if(record.get('Status') == 3){
+				//已取消
+				saveBtn.setDisabled(true);
+				completeBtn.setDisabled(true);
+				confirmBtn.setDisabled(true);
+				cancelBtn.setDisabled(true);
+			} 
+		}else{
+			saveBtn.setDisabled(false);
+			completeBtn.setDisabled(true);
+			confirmBtn.setDisabled(true);
+			cancelBtn.setDisabled(true);
+		}
+	},
+	
+	load: function(){
+		var me = this,
+			winEl = me.getEl(),
+			topWin = Ext.WindowMgr.getActive(),
+			objectId = this.getObjectId();
+		
+		topWin.setDisabled(true);
+
+		try{
+			if(objectId > 0){
+				Ext.Ajax.request({
+					url: Ext.String.format("{0}/{1}", me.apiPath, objectId),
+					method: 'GET',
+					params: {
+						Id: objectId
+					},
+					success: function(response, opts) {
+						var obj = Ext.decode(response.responseText);
+						var location = response.getResponseHeader('Location');
+						Ext.Logger.debug("Resource Location : " + location);
+						Ext.Logger.dir(obj);
+						this.refresh(obj);
+						topWin.setDisabled(false);
+					},
+					failure: function(response, opts) {
+						Ext.Logger.warn('server-side failure with status code ' + response.status);
+						topWin.setDisabled(false);
+					},
+					scope: me
+				});
+			}
+		}catch(err){
+			Ext.Logger.error(err.message);
+		}finally{
+			
+		}
+	},
+	
+	listeners: {
+		show: function(window, eOpts){
+			if(window.getObjectId() > 0){
+				window.load();
+			}
+		},
+		afterrender: function(window, eOpts){
+			var element = window.getEl();
+			element.on({
+				keyup: function(e, t, eOpts){
+					e.preventDefault();
+					if(e.getCharCode() == 13){
+						var sku = Ext.String.trim(window.scanBuffer.join('')); //Could be UPC or SKU
+						window.scanBuffer = [];
+						if(sku && sku.length > 0){
+							//try to retrieve the product from server side
+							Ext.Ajax.request({
+								url: Ext.String.format("{0}/Products?$filter=SKU eq '{1}' or UPC eq '{1}'", basket.dataSource, sku),
+								method: 'GET',
+								success: function(response, opts) {
+									var me = window,
+										store = window.getStore(),
+										obj = Ext.decode(response.responseText);
+									Ext.Logger.dir(obj);
+									if(obj && obj.value && obj.value.length > 0){
+										var data = obj.value[0];
+										if(store){
+											var model = Ext.create('Module.pos.inventoryMoveIn.model.InventoryMoveInLine', {
+												SKU: data.SKU,
+												Name: data.Name,
+												UOM: data.UOMName,
+												Quantity: 1.0
+											});
+											store.add(model);
+										};
+									}
+									window.setDisabled(false);
+								},
+								failure: function(response, opts) {
+									Ext.Logger.warn('server-side failure with status code ' + response.status);
+									window.setDisabled(false);
+								},
+								scope: window
+							});
+						}
+					}else{
+						window.scanBuffer.push(String.fromCharCode(e.getCharCode()));
+					}
+				}
+			});
+		}
+	},
+	
+	bbar: Ext.create('Ext.ux.statusbar.StatusBar', {
+        id: 'my-status',
+
+        // defaults to use when the status is cleared:
+        defaultText: 'Default status text',
+        defaultIconCls: 'default-icon',
+
+        // values to set initially:
+        text: 'Ready',
+        iconCls: 'ready-icon',
+
+        // any standard Toolbar items:
+        items: []
+    }),
+	
+	getStatusBar: function(){
+		var me = this,
+			statusBar = me.getDockedItems('statusbar[dock="bottom"]');
+		
+		return statusBar[0];
+	},
+	
+	setStatus: function(o){
+		var me = this,
+			statusBar = me.getStatusBar();
+		statusBar.setStatus(o);
 	}
+	
 });

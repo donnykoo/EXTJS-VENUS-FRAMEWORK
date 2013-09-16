@@ -166,8 +166,9 @@ Ext.define('Ext.ux.field.TextTriggerField', {
 	onItemDblClick: function(window, grid, record, item, index, e, eOpts){
 		var me = this,
 			picker = me.getPicker();
-		this.itemSelected(window, grid, record, item, index, e, eOpts);
 		picker.close();
+		this.itemSelected(window, grid, record, item, index, e, eOpts);
+		
 	},
 	
 	itemSelected: function(window, innerGrid, record, item, index, e, eOpts){

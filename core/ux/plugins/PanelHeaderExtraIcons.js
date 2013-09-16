@@ -36,5 +36,9 @@ Ext.define('Ext.ux.plugins.PanelHeaderExtraIcons', {
 			this.header = this.panel.getOwnerHeaderCt();
 		}
 		this.header.insert(this.index || this.header.items.length, this.headerButtons);
+	},
+	
+	getHeader: function(){
+		return this.header;
 	}
 });

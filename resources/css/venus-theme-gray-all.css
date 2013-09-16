@@ -12,6 +12,10 @@
 	margin: 0 10 0 10;
 }
 
+.x-statusbar {
+	color: red;
+}
+
 #west-region-container-innerCt {
 	position:absolute; z-index:1;
 	top:0px; bottom:48px; left:0;
