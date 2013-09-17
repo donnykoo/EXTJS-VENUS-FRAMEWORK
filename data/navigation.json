@@ -33,10 +33,13 @@
 				name: 'POS销售管理', module: 'pos.sales'
 			}, 
 			{
-				name: '库存管理', module: 'pos.inventory' 
+				name: '库存查询', module: 'pos.inventory' 
 			},
 			{
 				name: '入库单', module: 'pos.inventoryMoveIn' 
+			},
+			{
+				name: '出库单', module: 'pos.inventoryMoveOut' 
 			}
 		]
 	}, 
