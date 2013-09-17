@@ -1,5 +1,5 @@
 Ext.require([
-	'Module.pos.inventoryMoveIn.store.InventoryMoveInLines',
+	'Module.pos.inventoryMoveOut.store.InventoryMoveOutLines',
 	'Ext.ux.field.TextTriggerField',
 	'Ext.ux.field.NumericField',
 	'Module.pos.product.view.Main',
@@ -9,9 +9,9 @@ Ext.require([
 	'Module.pos.staff.view.Main'
 ]);
 
-Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
+Ext.define('Module.pos.inventoryMoveOut.view.CreateWindow', {
 	extend: 'Ext.Window',
-	alias: 'widget.inventoryMoveInCreateWindow',
+	alias: 'widget.inventoryMoveOutCreateWindow',
 	height: 540,
 	width: 800,
 	modal: true,
@@ -19,7 +19,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 		height: 36
 	},
 	border: false,
-	title: '入库单',
+	title: '出库单',
 	layout: 'border',
 	closable: false,
 	closeAction: 'hide',
@@ -35,7 +35,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 	
 	//Should have one record field
 	
-	apiPath: Ext.String.format('{0}/api/InventoryMoveInsApi', "/" === basket.contextPath ? "" : basket.contextPath),
+	apiPath: Ext.String.format('{0}/api/InventoryMoveOutsApi', "/" === basket.contextPath ? "" : basket.contextPath),
 	
 	initComponent: function() {
         var me = this;
@@ -54,7 +54,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 			}, {
 				xtype: 'button',
 				itemId: 'completeButton',
-				text: '完成收货',
+				text: '完成出库',
 				disabled: true,
 				height: 30,
 				width: 60,
@@ -63,7 +63,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 			},{
 				xtype: 'button',
 				itemId: 'confirmButton',
-				text: '确认收货',
+				text: '确认出库',
 				disabled: true,
 				height: 30,
 				width: 60,
@@ -166,26 +166,25 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 				{
 					items:[{
 						xtype: 'combo',
-						fieldLabel: '入库类型',
+						fieldLabel: '出库类型',
 						allowBlank: false,
 						tabIndex: 2,
 						anchor: '100%',
-						name: 'MoveInType',
+						name: 'MoveOutType',
 						queryMode: 'local',
 						displayField: 'value',
 						valueField: 'key',
 						store:  Ext.create('Ext.data.Store', {
 							fields: ['key', 'value'],
 							data : [
-								{"key": "0", "value":"采购收货"},
-								{"key": "1", "value":"调拨收货"},
-								{"key": "2", "value":"退货入库"},
-								{"key": "3", "value":"调整入库"}
+								{"key": "0", "value":"调拨出库"},
+								{"key": "1", "value":"调整出库"},
+								{"key": "3", "value":"领料出库"}
 							]
 						})
 					},{
 						xtype: 'ux.field.TextTriggerField',
-						fieldLabel: '收货仓库',
+						fieldLabel: '发货仓库',
 						tabIndex: 4,
 						anchor: '100%',
 						name: 'VirtualStock',
@@ -217,7 +216,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 			]
 		});
 		
-		var store = me.store = Ext.create('Module.pos.inventoryMoveIn.store.InventoryMoveInLines', { 
+		var store = me.store = Ext.create('Module.pos.inventoryMoveOut.store.InventoryMoveOutLines', { 
 			listeners: {
 				add: { fn: me.onRowAdded, scope: this }
 			}
@@ -347,7 +346,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 		var me = this,
 			store = this.getStore();
 		if(store){
-			var model = Ext.create('Module.pos.inventoryMoveIn.model.InventoryMoveInLine', {
+			var model = Ext.create('Module.pos.inventoryMoveOut.model.InventoryMoveOutLine', {
 				SKU: '',
 				Name: '',
 				UOM: '',
@@ -501,7 +500,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 	
 		var me = this;
 		
-		Ext.Msg.confirm('确认', '您是否确认完成入库?', 
+		Ext.Msg.confirm('确认', '您是否确认完成出库?', 
 			function(btn, text){
 				if (btn == 'ok' || btn == 'yes' || btn == '确定'){
 					Ext.Ajax.request({
@@ -530,7 +529,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 	onConfirmClicked: function(button, event){
 		var me = this;
 		
-		Ext.Msg.confirm('确认', '您是否确认所有商品已正确入库?', 
+		Ext.Msg.confirm('确认', '您是否确认所有商品已正确出库?', 
 			function(btn, text){
 				if (btn == 'ok' || btn == 'yes' || btn == '确定'){
 					Ext.Ajax.request({
@@ -559,7 +558,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 	onCancelClicked: function(button, event){
 		var me = this;
 		
-		Ext.Msg.confirm('确认', '您是否确定作废入库单?', 
+		Ext.Msg.confirm('确认', '您是否确定作废出库单?', 
 			function(btn, text){
 				if (btn == 'ok' || btn == 'yes' || btn == '确定'){
 					Ext.Ajax.request({
@@ -592,7 +591,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 			this.setObjectId(data.Id);
 			this.setObjectVersion(data.Version);
 			this.setObjectData(data);
-			var record = Ext.create('Module.pos.inventoryMoveIn.model.InventoryMoveIn', data);
+			var record = Ext.create('Module.pos.inventoryMoveOut.model.InventoryMoveOut', data);
 			this.getForm().getForm().loadRecord(record);
 			this.getStore().loadData(data.Lines);
 			
@@ -610,7 +609,12 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 			}
 			
 			me.setStatus({
-				text: status
+				text: status,
+				clear: {
+					wait: 8000,
+					anim: false,
+					useDefaults: false
+				}
 			});
 			
 			//re-config buttons
@@ -630,7 +634,8 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 				confirmBtn = header.getComponent('confirmButton'),
 				cancelBtn = header.getComponent('cancelButton');
 			
-			if(record.get('Status') == 0){	
+			
+			if(record.get('Status') == 0 && record.get('Id') > 0){	
 				//草稿
 				saveBtn.setDisabled(false);
 				completeBtn.setDisabled(false);
@@ -710,9 +715,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 	
 	listeners: {
 		show: function(window, eOpts){
-			if(window.getObjectId() > 0){
-				window.load();
-			}
+			window.load();
 		},
 		afterrender: function(window, eOpts){
 			var element = window.getEl();
@@ -735,7 +738,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 									if(obj && obj.value && obj.value.length > 0){
 										var data = obj.value[0];
 										if(store){
-											var model = Ext.create('Module.pos.inventoryMoveIn.model.InventoryMoveInLine', {
+											var model = Ext.create('Module.pos.inventoryMoveOut.model.InventoryMoveOutLine', {
 												SKU: data.SKU,
 												Name: data.Name,
 												UOM: data.UOMName,

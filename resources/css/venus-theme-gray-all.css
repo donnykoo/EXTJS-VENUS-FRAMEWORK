@@ -16,6 +16,11 @@
 	color: red;
 }
 
+.x-form-required-field 
+{
+    border-right:5px solid red;
+}
+
 #west-region-container-innerCt {
 	position:absolute; z-index:1;
 	top:0px; bottom:48px; left:0;
