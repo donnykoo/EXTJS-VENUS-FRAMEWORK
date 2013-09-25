@@ -13,8 +13,7 @@
 			{name: '工位查询', module: 'pos.bay'}, 
 			{name: '员工查询', module: 'pos.staff' },
 			{name: '设备注册表', module: 'pos.hardwareRegistry' },
-			{name: '虚拟仓库', module: 'pos.virtualStock' },
-			{name: '库存查询', module: 'pos.inventory'}
+			{name: '虚拟仓库', module: 'pos.virtualStock' }
 		]
 	}, 
 	{

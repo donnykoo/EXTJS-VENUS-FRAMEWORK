@@ -14,7 +14,7 @@ Ext.define('Module.pos.staff.view.Main', {
 						padding: '0 0 0 10'
 					},
 					
-					defaultType: 'textfield',
+					defaultType: 'textfieldSearch',
 					items: [
 						{
 							fieldLabel: '姓名',
@@ -24,11 +24,6 @@ Ext.define('Module.pos.staff.view.Main', {
 							fieldLabel: '员工号',
 							name: 'StaffNumber',
 							flex: 1
-						},{
-							xtype: 'hidden',
-							name: 'placeholder',
-							flex: 1,
-							submitValue: false
 						}
 					]
 				}]

@@ -14,6 +14,7 @@ Ext.define('Module.pos.inventoryMoveOut.view.CreateWindow', {
 	alias: 'widget.inventoryMoveOutCreateWindow',
 	height: 540,
 	width: 800,
+	constrain: true,
 	modal: true,
 	header: {
 		height: 36

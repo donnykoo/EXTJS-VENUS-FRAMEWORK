@@ -25,7 +25,6 @@ Ext.define('Module.pos.inventoryMoveOut.view.Main', {
                             name: 'IdNumber',
                             flex: 1
                         }, {
-                            xtype: 'textfield',
                             fieldLabel: '虚拟库',
                             name: 'VirtualStock',
                             flex: 1
@@ -54,8 +53,8 @@ Ext.define('Module.pos.inventoryMoveOut.view.Main', {
                     renderer:function(value) {
                         if (value === 'Transfer') {
                             return '调拨';
-                        } else if (value === 'Return') {
-                            return '退货';
+                        } else if (value === 'Adjust') {
+                            return '调整';
                         } else if (value === 'PickOut') {
                             return '领料';
                         } 
