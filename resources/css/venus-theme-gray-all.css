@@ -271,8 +271,8 @@ ul, ul ul {
 }
 
 .x-mask {
-    background-color: white;
-    opacity: 0.5;
+    background-color: gray;
+    opacity: 0.1;
 }
 
 /**

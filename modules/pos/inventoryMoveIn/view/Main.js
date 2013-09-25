@@ -25,7 +25,6 @@ Ext.define('Module.pos.inventoryMoveIn.view.Main', {
                             name: 'IdNumber',
                             flex: 1
                         }, {
-                            xtype: 'textfield',
                             fieldLabel: '虚拟库',
                             name: 'VirtualStock',
                             flex: 1
@@ -95,6 +94,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.Main', {
 		if(!me.createWindow){
 			me.createWindow = Ext.widget('inventoryMoveInCreateWindow');
 		}
+		me.createWindow.setObjectId(0);
 		return me.createWindow;
 	}
 });

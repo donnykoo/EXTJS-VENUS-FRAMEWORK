@@ -21,10 +21,6 @@ Ext.define('Module.pos.virtualStock.view.Main', {
 							name: 'Name',
 							flex: 1
 						},{
-							fieldLabel: '工位编号',
-							name: 'BayNumber',
-							flex: 1
-						},{
 							xtype: 'hidden',
 							name: 'placeholder',
 							flex: 1,

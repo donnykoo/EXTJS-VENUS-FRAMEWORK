@@ -15,21 +15,16 @@ Ext.define('Module.pos.priceBook.view.Main', {
 						padding: '0 0 0 10'
 					},
 					
-					defaultType: 'textfield',
+					defaultType: 'textfieldSearch',
 					items: [
 						{
 							fieldLabel: 'SKU',
 							name: 'SKU',
 							flex: 1
 						},{
-							fieldLabel: 'Name',
-							name: 'Name',
+							fieldLabel: 'Store',
+							name: 'Store',
 							flex: 1
-						},{
-							xtype: 'hidden',
-							name: 'placeholder',
-							flex: 1,
-							submitValue: false
 						}
 					]
 				}]
@@ -39,11 +34,21 @@ Ext.define('Module.pos.priceBook.view.Main', {
 			},
 			store: Ext.data.StoreManager.lookup('Module.pos.priceBook.store.PriceBooks'),
 			columns: [
+				{ text: 'Store',  dataIndex: 'Store', width: 100 },
 				{ text: 'SKU',  dataIndex: 'SKU', width: 100 },
 				{ text: 'Name', dataIndex: 'ProductName', flex: 1 },
 				{ text: 'Price', dataIndex: 'Price', width: 160 },
-				{ text: 'Effective Date', dataIndex: 'EffectiveDate', width: 160 },
-				{ text: 'End Date', dataIndex: 'EndDate', width: 160 }
+				{ text: 'Effective Date', dataIndex: 'StartDate', width: 160 },
+				{ text: 'End Date', dataIndex: 'EndDate', width: 160 },
+				{ text: 'Type', dataIndex: 'Type', width: 160, 
+					renderer: function(value){
+						if(value == 'Standard'){
+							return '基准价';
+						}else if(value == 'Temporary'){
+							return '本店门市价';
+						}
+					} 
+				}
 			]
         });
 		

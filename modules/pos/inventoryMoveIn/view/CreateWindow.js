@@ -14,6 +14,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 	alias: 'widget.inventoryMoveInCreateWindow',
 	height: 540,
 	width: 800,
+	constrain: true,
 	modal: true,
 	header: {
 		height: 36
@@ -622,6 +623,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 	
 	configHeader: function(record){
 		var me = this;
+		
 		if(record){
 			var plugin = me.getPlugin('headerbuttons'),
 				header = plugin.getHeader(),
@@ -630,7 +632,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 				confirmBtn = header.getComponent('confirmButton'),
 				cancelBtn = header.getComponent('cancelButton');
 			
-			if(record.get('Status') == 0){	
+			if(record.get('Status') == 0 && record.get('Id') > 0){	
 				//草稿
 				saveBtn.setDisabled(false);
 				completeBtn.setDisabled(false);
@@ -710,9 +712,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 	
 	listeners: {
 		show: function(window, eOpts){
-			if(window.getObjectId() > 0){
-				window.load();
-			}
+			window.load();
 		},
 		afterrender: function(window, eOpts){
 			var element = window.getEl();

@@ -1,11 +1,11 @@
 Ext.define('Module.pos.inventory.model.Inventory', {
     extend: 'Ext.data.Model',
     fields: ['Id', 'Version', 'Active', 'LastUpdate', 'CreateDate', 'CreateBy', 'UpdateBy', 
-		'SKU', 'ProductName', 'Store', 'VirtualStock', 'VirtualStockName', 'TotalQuantity', 'AvailableQuantity', 'ReservedQuantity'],
+		'SKU', 'ProductName', 'Store', 'VirtualStock', 'VirtualStockName', 'Onhand', 'Available', 'Reserved'],
 	idProperty: 'Id',
     proxy: {
         type: 'ajax',
-        url: Ext.String.format('{0}/Inventories?$inlinecount=allpages', basket.dataSource),
+        url: Ext.String.format('{0}/InventoryDetails?$inlinecount=allpages', basket.dataSource),
         reader: {
             type: 'json',
             root: 'value',

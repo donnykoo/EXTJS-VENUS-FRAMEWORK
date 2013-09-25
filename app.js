@@ -57,12 +57,12 @@ Ext.application({
 			if(splashscreen && splashscreen.id){
 				splashscreen.fadeOut({
 					duration: 1000,
-					remove:true
+					remove:false
 				});
 				// Fade out the icon and message
 				splashscreen.next().fadeOut({
 					duration: 1000,
-					remove:true,
+					remove:false,
 					listeners: {
 						afteranimate: function() {
 							// Set the body as unmasked after the animation
