@@ -38,7 +38,7 @@
 					padding: '0 0 0 10'
 				},
 				
-				defaultType: 'textfield',
+				defaultType: 'textfieldSearch',
 				items: [
 					{
 					    fieldLabel: 'StaffNumber',
