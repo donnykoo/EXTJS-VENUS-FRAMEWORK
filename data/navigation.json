@@ -39,6 +39,9 @@
 			},
 			{
 				name: '出库单', module: 'pos.inventoryMoveOut' 
+			},
+			{
+				name: '领料单', module: 'pos.pickOutOrder' 
 			}
 		]
 	}, 
