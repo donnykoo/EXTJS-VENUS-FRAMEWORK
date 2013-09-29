@@ -181,7 +181,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 								{"key": "0", "value":"采购收货"},
 								{"key": "1", "value":"调拨收货"},
 								{"key": "2", "value":"退货入库"},
-								{"key": "3", "value":"调整入库"}，
+								{"key": "3", "value":"调整入库"},
 								{"key": "4", "value":"退料入库"}
 							]
 						})
