@@ -26,10 +26,6 @@ Ext.define('Module.pos.shiftTable.controller.Main', {
                 }
             },
 
-            'shiftTableMainView form #search-btn': {
-                click: me.onSearchButtonClicked
-            },
-
             'shiftTableMainView gridpanel #export-btn': {
                 click: me.onExportButtonClicked
             },
@@ -128,25 +124,6 @@ Ext.define('Module.pos.shiftTable.controller.Main', {
         //        alert(resText);
         //    }
         //});
-    },
-
-    onSearchButtonClicked: function (btn, event, eOpts) {
-        var me = this;
-        var store = me.getStore('Module.pos.shiftTable.store.ShiftTables');
-        store.load({
-            remoteFilter: true,
-            params: {
-                start: 0,
-                limit: 5
-            },
-            filters: [
-                new Ext.util.Filter({
-                    property: 'sku',
-                    operator: '*>',
-                    value: '2'
-                })
-            ]
-        });
     },
 
     beforeLaunch: function (appliation) {
