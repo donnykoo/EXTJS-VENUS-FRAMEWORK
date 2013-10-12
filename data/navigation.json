@@ -29,7 +29,7 @@
 				name: '施工作业管理', module: 'pos.serviceInstance' 
 			},
 			{
-				name: 'POS销售管理', module: 'pos.sales'
+				name: 'POS销售管理', module: 'pos.POSOrder'
 			}, 
 			{
 				name: '库存查询', module: 'pos.inventory' 
