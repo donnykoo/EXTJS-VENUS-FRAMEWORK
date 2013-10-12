@@ -36,7 +36,7 @@ Ext.define('Module.pos.bay.view.Main', {
 			gridConfig: {
 
 			},
-			store: Ext.data.StoreManager.lookup('Module.pos.bay.store.Bays'),
+			store: me.store ? me.store : Ext.data.StoreManager.lookup('Module.pos.bay.store.Bays'),
 			columns: [
 				{ text: '名称', dataIndex: 'Name', width: 200 },
 				{ text: '工位编号',  dataIndex: 'BayNumber', width: 160 },

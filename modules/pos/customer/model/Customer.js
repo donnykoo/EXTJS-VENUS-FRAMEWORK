@@ -1,6 +1,6 @@
 Ext.define('Module.pos.customer.model.Customer', {
     extend: 'Ext.data.Model',
-    fields: ['Id', 'Version', 'Active', 'LastUpdate', 'IdNumber', 'FirstName', 'MiddleName', 'LastName',
+    fields: ['Id', 'Version', 'Active', 'LastUpdate', 'IdNumber','Name', 'FirstName', 'MiddleName', 'LastName',
 			'Gender', 'Mobile', 'HomePhone', 'BusinessPhone', 'Fax', 'Country', 'Province', 'City', 'County', 
 			'Street1', 'Street2', 'IdentityCardNumber'],
 	idProperty: 'Id',
