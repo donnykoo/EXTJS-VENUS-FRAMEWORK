@@ -145,7 +145,34 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 						anchor: '-5',
 						name: 'RefNumber',
 						tabIndex: 5,
-						emptyText: '如采购单、调拨单号'
+						emptyText: '如采购单、调拨单号',
+						listeners: {
+						    blur: function (field, the, eOpts) {
+						        var refNumber = field.getValue();
+						        if (refNumber == '') {
+						            return;
+						        }
+						        Ext.Ajax.request({
+						            url: Ext.String.format("{0}/{1}/ValidateRefNumber", me.apiPath, me.objectId),
+						            method: 'POST',
+						            jsonData: { "RefNumber": refNumber },
+						            success: function (response, opts) {
+
+						                var obj = Ext.decode(response.responseText);
+						                var location = response.getResponseHeader('Location');
+						                Ext.Logger.debug("Resource Location : " + location);
+						                Ext.Logger.dir(obj);
+
+						                this.refresh(obj);
+						            },
+						            failure: function (response, opts) {
+						                field.markInvalid("该单号不存在");
+						                Ext.Logger.warn('server-side failure with status code ' + response.status);
+						            },
+						            scope: this
+						        });
+						    }
+						}
 					},{
 						xtype: 'hidden',
 						fieldLabel: 'ID',
