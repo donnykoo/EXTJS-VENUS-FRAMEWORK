@@ -30,7 +30,12 @@ Ext.define('Module.pos.virtualStock.view.Main', {
 				}]
 			},
 			gridConfig: {
-
+				tbar: {
+					xtype: 'toolbar',
+					border: true,
+					height: 30,
+					items: []
+				},
 			},
 			store: me.store ? me.store : Ext.data.StoreManager.lookup('Module.pos.virtualStock.store.VirtualStocks'),
 			columns: me.columns ? me.columns : [
