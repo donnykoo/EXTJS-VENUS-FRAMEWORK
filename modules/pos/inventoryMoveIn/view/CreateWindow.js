@@ -148,6 +148,11 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 						emptyText: '如采购单、调拨单号',
 						listeners: {
 						    blur: function (field, the, eOpts) {
+						        var moveInType = me.form.getForm().findField("MoveInType").getValue();
+						        if (moveInType == null) {
+						            field.setValue("");
+						            Ext.Msg.alert('提示', '必须先选择入库类型');
+						        }
 						        var refNumber = field.getValue();
 						        if (refNumber == '') {
 						            return;
@@ -155,7 +160,7 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 						        Ext.Ajax.request({
 						            url: Ext.String.format("{0}/{1}/ValidateRefNumber", me.apiPath, me.objectId),
 						            method: 'POST',
-						            jsonData: { "RefNumber": refNumber },
+						            jsonData: { "RefNumber": refNumber , "MoveInType" : moveInType},
 						            success: function (response, opts) {
 
 						                var obj = Ext.decode(response.responseText);
