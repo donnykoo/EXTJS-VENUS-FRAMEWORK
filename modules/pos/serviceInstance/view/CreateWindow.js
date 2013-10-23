@@ -602,6 +602,8 @@ Ext.define('Module.pos.serviceInstance.view.CreateWindow', {
 
     onCloseClicked: function(button, event) {
         var me = this;
+        var grid = Ext.getCmp("ServiceInstanceMainView");
+        grid.getStore().load();
         me.close();
     },
 
