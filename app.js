@@ -20,6 +20,18 @@ Ext.onReady(function() {
     Ext.DomHelper.insertFirst(Ext.query('.x-mask-msg')[0], {
         cls: 'x-splash-icon'
     });
+	
+	//Start the activity monitor
+	Ext.ux.ActivityMonitor.init({
+		verbose : true,
+		interval    : (100 * 60 * 1), //6 sec
+		maxInactive : (100 * 60 * 5), //30 sec
+		isInactive: function(){
+			//Slide in the login window
+			
+		}
+	});
+	Ext.ux.ActivityMonitor.start();
 });
 
 
@@ -162,8 +174,9 @@ Ext.application({
 				loginMask.show();
 			}
 			*/
-			statusBar.setStatus();
+			
 		}else if(response.status === 403){ //Forbidden
+			
 			statusBar.setStatus({
 				text: Ext.String.format('ERROR - 403 Forbidden - {0}', response.responseText),
 				clear: true

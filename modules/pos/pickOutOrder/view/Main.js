@@ -90,6 +90,7 @@ Ext.define('Module.pos.pickOutOrder.view.Main', {
 		if(!me.createWindow){
 			me.createWindow = Ext.widget('pickOutOrderCreateWindow');
 		}
+		me.createWindow.setObjectId(0);
 		return me.createWindow;
 	}
 });

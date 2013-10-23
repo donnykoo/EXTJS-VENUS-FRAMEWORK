@@ -6,6 +6,9 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title id="page-title">Venus SPA UI Framework</title>
 	
+	<link rel="stylesheet" type="text/css" href="resources/css/base.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/layout.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/skeleton.css">
 	<!-- <x-bootstrap> -->
     <script type="text/javascript" src="core/shared/include-ext.js?theme=gray"></script>
 	<!--
@@ -16,9 +19,29 @@
     <script type="text/javascript" src="core/overrides/Ext.app.EventBus.js"></script>
 	<script type="text/javascript" src="core/overrides/Ext.data.proxy.Server.js"></script>
 	<script type="text/javascript" src="core/extension/Ext.form.field.Field.js"></script>
+	<script type="text/javascript" src="core/extension/Ext.ux.ActivityMonitor.js"></script>
     <script type="text/javascript" src="app.js"></script>
 </head>
 <body>
+	<div id="app-login-form" class="container">
+		<div class="form-bg">
+			<form action="#">
+				<h2>登录POS系统</h2>
+                <p><input data-val="true" data-val-required="门店编码不能为空" 
+					id="StoreCode" name="StoreCode" placeholder="门店编码" type="text" value="" /></p>
+				<p><input data-val="true" data-val-required="用户名不能为空" 
+					id="UserName" name="UserName" placeholder="用户名" type="text" value="" /></p>
+				<p><input data-val="true" data-val-required="密码不能为空" id="Password" name="Password" 
+					placeholder="密码" type="password" /></p>
+				<p></p>
+				<button type="submit"></button>
+            </form>
+		</div>
+        <!--
+	
+		<p class="forgot">Forgot your password? <a href="">Click here to reset it.</a></p>
 
+        -->
+	</div><!-- container -->
 </body>
 </html>

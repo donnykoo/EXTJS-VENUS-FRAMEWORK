@@ -587,7 +587,10 @@ Ext.define('Module.pos.inventoryMoveOut.view.CreateWindow', {
 	
 	refresh: function(data){
 		var me = this,
-			topWin = Ext.WindowMgr.getActive();
+			winEl = me.getEl(),
+			topWin = Ext.WindowMgr.getActive(),
+			objectId = this.getObjectId();
+			
 		try{
 			this.setObjectId(data.Id);
 			this.setObjectVersion(data.Version);

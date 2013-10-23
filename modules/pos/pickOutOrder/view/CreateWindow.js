@@ -580,7 +580,12 @@ Ext.define('Module.pos.pickOutOrder.view.CreateWindow', {
 			}
 			
 			me.setStatus({
-				text: status
+				text: status,
+				clear: {
+					wait: 8000,
+					anim: false,
+					useDefaults: false
+				}
 			});
 			
 			//re-config buttons
