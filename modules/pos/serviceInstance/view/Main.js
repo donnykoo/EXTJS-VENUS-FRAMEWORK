@@ -2,6 +2,7 @@
  * serviceInstance主显示页面
  */
 Ext.define('Module.pos.serviceInstance.view.Main', {
+    id:'ServiceInstanceMainView',
     extend: 'Ext.ux.view.SearchPanel',
     alias: 'widget.serviceInstanceMainView',
 
@@ -25,8 +26,8 @@ Ext.define('Module.pos.serviceInstance.view.Main', {
                             name: 'IdNumber',
                             flex: 1
                         }, {
-                            fieldLabel: '会员号',
-                            name: 'CustomerNumber',
+                            fieldLabel: '会员名称',
+                            name: 'CustomerName',
                             flex: 1
                         }, {
                             xtype: 'hidden',
@@ -53,6 +54,8 @@ Ext.define('Module.pos.serviceInstance.view.Main', {
                 { text: '操作人', dataIndex: 'WorkerNumber', width: 120 },
                 { text: '计划开始时间', dataIndex: 'PlanStartTime', width: 120, xtype: 'datecolumn', format: 'Y-m-d H:i:j' },
                 { text: '计划结束时间', dataIndex: 'PlanEndTime', width: 120, xtype: 'datecolumn', format: 'Y-m-d H:i:j' },
+                { text: '实际开始时间', dataIndex: 'ActualStartTime', width: 120, xtype: 'datecolumn', format: 'Y-m-d H:i:j' },
+                { text: '实际结束时间', dataIndex: 'ActualEndTime', width: 120, xtype: 'datecolumn', format: 'Y-m-d H:i:j' },
                 {
                     text: '状态',
                     dataIndex: 'Status',
