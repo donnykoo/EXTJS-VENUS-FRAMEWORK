@@ -38,7 +38,12 @@ Ext.define('Module.pos.POSOrder.view.Main', {
                 }]
             },
             gridConfig: {
-                
+							tbar: {
+								xtype: 'toolbar',
+								border: true,
+								height: 30,
+								items: []
+							},                
             },
             store: me.store ? store : Ext.data.StoreManager.lookup('Module.pos.POSOrder.store.POSOrders'),
             columns: [

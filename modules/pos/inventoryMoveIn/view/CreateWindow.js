@@ -145,7 +145,39 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 						anchor: '-5',
 						name: 'RefNumber',
 						tabIndex: 5,
-						emptyText: '如采购单、调拨单号'
+						emptyText: '如采购单、调拨单号',
+						listeners: {
+						    blur: function (field, the, eOpts) {
+						        var moveInType = me.form.getForm().findField("MoveInType").getValue();
+						        if (moveInType == null) {
+						            field.setValue("");
+						            Ext.Msg.alert('提示', '必须先选择入库类型');
+						        }
+						        var refNumber = field.getValue();
+						        if (refNumber == '') {
+						            return;
+						        }
+						        Ext.Ajax.request({
+						            url: Ext.String.format("{0}/{1}/ValidateRefNumber", me.apiPath, me.objectId),
+						            method: 'POST',
+						            jsonData: { "RefNumber": refNumber , "MoveInType" : moveInType},
+						            success: function (response, opts) {
+
+						                var obj = Ext.decode(response.responseText);
+						                var location = response.getResponseHeader('Location');
+						                Ext.Logger.debug("Resource Location : " + location);
+						                Ext.Logger.dir(obj);
+
+						                this.refresh(obj);
+						            },
+						            failure: function (response, opts) {
+						                field.markInvalid("该单号不存在");
+						                Ext.Logger.warn('server-side failure with status code ' + response.status);
+						            },
+						            scope: this
+						        });
+						    }
+						}
 					},{
 						xtype: 'hidden',
 						fieldLabel: 'ID',
@@ -184,7 +216,22 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 								{"key": "3", "value":"调整入库"},
 								{"key": "4", "value":"退料入库"}
 							]
-						})
+						}),
+						listeners: {
+						    change: function (combobox, newValue, oldValue, eOpts) {
+						        var value = combobox.getValue();
+						        var upForm = combobox.up('form').getForm();
+						        if (value) {
+						            if (value == 0 || value == 1) {
+						                var refField = upForm.findField('RefNumber');
+						                if (refField.getValue() == '') {
+						                    refField.markInvalid("请输出单号");
+						                }
+
+						            }
+						        }
+						    }
+						}
 					},{
 						xtype: 'ux.field.TextTriggerField',
 						fieldLabel: '收货仓库',

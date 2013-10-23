@@ -104,7 +104,12 @@ Ext.define('Module.pos.appointment.view.Main', {
 				}]
 			},
 			gridConfig: {
-
+				tbar: {
+					xtype: 'toolbar',
+					border: true,
+					height: 30,
+					items: []
+				},
 			},
 			store: Ext.data.StoreManager.lookup('Module.pos.appointment.store.Appointments'),
 			columns: [
