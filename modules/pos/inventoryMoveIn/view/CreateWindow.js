@@ -216,7 +216,22 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 								{"key": "3", "value":"调整入库"},
 								{"key": "4", "value":"退料入库"}
 							]
-						})
+						}),
+						listeners: {
+						    change: function (combobox, newValue, oldValue, eOpts) {
+						        var value = combobox.getValue();
+						        var upForm = combobox.up('form').getForm();
+						        if (value) {
+						            if (value == 0 || value == 1) {
+						                var refField = upForm.findField('RefNumber');
+						                if (refField.getValue() == '') {
+						                    refField.markInvalid("请输出单号");
+						                }
+
+						            }
+						        }
+						    }
+						}
 					},{
 						xtype: 'ux.field.TextTriggerField',
 						fieldLabel: '收货仓库',
