@@ -148,6 +148,11 @@ Ext.define('Module.pos.inventoryMoveOut.view.CreateWindow', {
 						emptyText: '如采购单、调拨单号',
 						listeners: {
 						    blur: function (field, the, eOpts) {
+						        var moveoutType = me.form.getForm().findField("MoveOutType").getValue();
+						        if (moveoutType == null) {
+						            field.setValue("");
+						            Ext.Msg.alert('提示', '必须先选择入库类型');
+						        }
 						        var refNumber = field.getValue();
 						        if (refNumber == '') {
 						            return;
@@ -155,7 +160,7 @@ Ext.define('Module.pos.inventoryMoveOut.view.CreateWindow', {
 						        Ext.Ajax.request({
 						            url: Ext.String.format("{0}/{1}/ValidateRefNumber", me.apiPath, me.objectId),
 						            method: 'POST',
-						            jsonData: {"RefNumber": refNumber},
+						            jsonData: { "RefNumber": refNumber, "MoveOutType": moveoutType },
 						            success: function (response, opts) {
 						                
 						                var obj = Ext.decode(response.responseText);
@@ -209,7 +214,22 @@ Ext.define('Module.pos.inventoryMoveOut.view.CreateWindow', {
 								{"key": "1", "value":"调整出库"},
 								{"key": "3", "value":"领料出库"}
 							]
-						})
+						}),
+						listeners: {
+						    change: function(combobox, newValue, oldValue, eOpts ) {
+						        var value = combobox.getValue();
+						        var upForm = combobox.up('form').getForm();
+						        if (value) {
+						            if (value == 0 || value == 3) {
+						                var refField = upForm.findField('RefNumber');
+						                if (refField.getValue() == '') {
+						                    refField.markInvalid("请输出单号");
+						                }
+
+						            }
+						        }
+						    }
+						}
 					},{
 						xtype: 'ux.field.TextTriggerField',
 						fieldLabel: '发货仓库',
