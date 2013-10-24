@@ -146,32 +146,36 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 						name: 'RefNumber',
 						tabIndex: 5,
 						emptyText: '如采购单、调拨单号',
+						textValid: true,
+						validator: function (value) {
+						    return this.textValid;
+						},
 						listeners: {
 						    blur: function (field, the, eOpts) {
 						        var moveInType = me.form.getForm().findField("MoveInType").getValue();
 						        if (moveInType == null) {
-						            field.setValue("");
-						            Ext.Msg.alert('提示', '必须先选择入库类型');
+						            field.textValid = '必须先选择入库类型';
+						            field.validate();
 						        }
 						        var refNumber = field.getValue();
-						        if (refNumber == '') {
-						            return;
+						        if (moveInType == 0 || moveInType == 1) {
+						            if (refNumber == '') {
+						                field.textValid = '原始单证编号不能为空';
+						                field.validate();
+						            }
 						        }
 						        Ext.Ajax.request({
 						            url: Ext.String.format("{0}/{1}/ValidateRefNumber", me.apiPath, me.objectId),
 						            method: 'POST',
 						            jsonData: { "RefNumber": refNumber , "MoveInType" : moveInType},
 						            success: function (response, opts) {
-
-						                var obj = Ext.decode(response.responseText);
-						                var location = response.getResponseHeader('Location');
-						                Ext.Logger.debug("Resource Location : " + location);
-						                Ext.Logger.dir(obj);
-
-						                this.refresh(obj);
+						                field.clearInvalid();
+						                field.textValid = true;
+						                field.validate();
 						            },
 						            failure: function (response, opts) {
-						                field.markInvalid("该单号不存在");
+						                field.textValid = "该单号不存在";
+						                field.validate();
 						                Ext.Logger.warn('server-side failure with status code ' + response.status);
 						            },
 						            scope: this
@@ -222,12 +226,17 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 						        var value = combobox.getValue();
 						        var upForm = combobox.up('form').getForm();
 						        if (value) {
+						            var refField = upForm.findField('RefNumber');
 						            if (value == 0 || value == 1) {
-						                var refField = upForm.findField('RefNumber');
 						                if (refField.getValue() == '') {
-						                    refField.markInvalid("请输出单号");
+						                    refField.textValid = "请输入单号";
+						                    refField.validate();
+						                } else {
+						                    refField.fireEvent('blur', refField);
 						                }
-
+						            } else {
+						                refField.textValid = true;
+						                refField.clearInvalid();
 						            }
 						        }
 						    }
