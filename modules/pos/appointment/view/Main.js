@@ -104,16 +104,10 @@ Ext.define('Module.pos.appointment.view.Main', {
 				}]
 			},
 			gridConfig: {
-				tbar: {
-					xtype: 'toolbar',
-					border: true,
-					height: 30,
-					items: []
-				},
+
 			},
 			store: Ext.data.StoreManager.lookup('Module.pos.appointment.store.Appointments'),
 			columns: [
-				{xtype: 'rownumberer'},
 				{ text: '预约号',  dataIndex: 'IdNumber', width: 120 },
 				{ text: '车牌', dataIndex: 'PlateNumber', width: 100 },
 				{ text: '工位', dataIndex: 'BayNumber', width: 60 },
@@ -126,16 +120,8 @@ Ext.define('Module.pos.appointment.view.Main', {
 					} 
 				},
 				{ text: '顾客姓名', dataIndex: 'CustomerName', width: 60 },
-				{ text: '顾客手机', dataIndex: 'CustomerMobile', width: 100 },
-				{ text: '是否接受', dataIndex: 'Accepted', width: 60,
-					renderer: function(value){
-						if(value){
-							return '是';
-						}else{
-							return '否';
-						}
-					}
-				},
+				{ text: '顾客手机', dataIndex: 'CustomerMobileMobile', width: 100 },
+				{ text: '是否接受', dataIndex: 'Accepted', width: 60 },
 				{ text: '状态', dataIndex: 'Status', width: 60, 
 					renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 						if(value === 'Pending'){

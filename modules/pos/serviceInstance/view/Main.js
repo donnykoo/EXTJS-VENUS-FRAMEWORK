@@ -26,7 +26,7 @@ Ext.define('Module.pos.serviceInstance.view.Main', {
                             name: 'IdNumber',
                             flex: 1
                         }, {
-                            fieldLabel: '会员名称',
+                            fieldLabel: '顾客名称',
                             name: 'CustomerName',
                             flex: 1
                         }, {
@@ -49,7 +49,7 @@ Ext.define('Module.pos.serviceInstance.view.Main', {
             columns: [
 				{xtype: 'rownumberer'},
                 { text: '施工单号', dataIndex: 'IdNumber', width: 120 },
-                { text: '会员', dataIndex: 'CustomerName', width: 120 },
+                { text: '顾客', dataIndex: 'CustomerName', width: 120 },
                 { text: '服务', dataIndex: 'ServiceNumber', width: 120 },
                 { text: '操作人', dataIndex: 'WorkerNumber', width: 120 },
                 { text: '计划开始时间', dataIndex: 'PlanStartTime', width: 120, xtype: 'datecolumn', format: 'Y-m-d H:i:j' },

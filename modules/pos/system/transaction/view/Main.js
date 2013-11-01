@@ -34,12 +34,7 @@ Ext.define('Module.pos.system.transaction.view.Main', {
 				}]
 			},
 			gridConfig: {
-				tbar: {
-					xtype: 'toolbar',
-					border: true,
-					height: 30,
-					items: []
-				},
+
 			},
 			store: Ext.data.StoreManager.lookup('Module.pos.system.transaction.store.Transactions'),
 			columns: [

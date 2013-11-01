@@ -38,23 +38,33 @@ Ext.define('Module.pos.POSOrder.view.Main', {
                 }]
             },
             gridConfig: {
-							tbar: {
-								xtype: 'toolbar',
-								border: true,
-								height: 30,
-								items: []
-							},                
+                
             },
             store: me.store ? store : Ext.data.StoreManager.lookup('Module.pos.POSOrder.store.POSOrders'),
             columns: [
                 { text: 'POS单号', dataIndex: 'IdNumber', width: 150 },
                 { text: '会员号', dataIndex: 'CustomerNumber', width: 150 },
                 { text: '下单时间', dataIndex: 'TransactionDate', width: 150, xtype: 'datecolumn' },
+                { text: '总金额', dataIndex: 'OrderAmount', width: 150, xtype: 'numbercolumn' },
+                { text: '实收金额', dataIndex: 'TotalReceivable', width: 150, xtype: 'numbercolumn' },
+                {
+                    text: '类型',
+                    dataIndex: 'POSOrderType',
+                    width: 150,
+                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        if (value == 'Normal') {
+                            return "正常";
+                        } else if (value == 'Refund') {
+                            return "退款";
+                        }
+                        return value;
+                    }
+                },
                 {
                     text: '状态',
                     dataIndex: 'StatusValue',
                     width: 150,
-                    renderer: function (value, metaData, record, rowIndex, colIndex, store, view) {
+                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                         if (value == 0) {
                             return "草稿";
                         } else if (value == 1) {
@@ -68,7 +78,7 @@ Ext.define('Module.pos.POSOrder.view.Main', {
                     }
                 }
             ]
-        }); 
+        });
 		
 		
         me.callParent();

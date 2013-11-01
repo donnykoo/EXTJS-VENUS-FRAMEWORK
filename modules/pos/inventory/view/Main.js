@@ -30,12 +30,7 @@ Ext.define('Module.pos.inventory.view.Main', {
 				}]
 			},
 			gridConfig: {
-				tbar: {
-					xtype: 'toolbar',
-					border: true,
-					height: 30,
-					items: []
-				},
+
 			},
 			store: Ext.data.StoreManager.lookup('Module.pos.inventory.store.Inventories'),
 			columns: [

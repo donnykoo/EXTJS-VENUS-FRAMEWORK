@@ -59,8 +59,6 @@ Ext.define('Module.pos.inventoryMoveIn.view.Main', {
                             return '退货';
                         } else if (value === 'Adjust') {
                             return '调整';
-                        } else if (value === 'PickIn') {
-                            return '退料';
                         } 
                     }
                 },

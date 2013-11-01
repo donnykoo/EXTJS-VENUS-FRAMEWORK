@@ -42,6 +42,9 @@
 			},
 			{
 				name: '领料单', module: 'pos.pickOutOrder' 
+			},
+			{
+				name: '采购订单', module: 'pos.purchaseOrder' 
 			}
 		]
 	}, 
