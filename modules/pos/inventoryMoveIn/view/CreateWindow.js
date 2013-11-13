@@ -145,9 +145,6 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 						anchor: '-5',
 						name: 'RefNumber',
 						tabIndex: 5,
-<<<<<<< HEAD
-						emptyText: '如采购单、调拨单号'
-=======
 						emptyText: '如采购单、调拨单号',
 						textValid: true,
 						validator: function (value) {
@@ -185,7 +182,6 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 						        });
 						    }
 						}
->>>>>>> upstream/master
 					},{
 						xtype: 'hidden',
 						fieldLabel: 'ID',
@@ -223,9 +219,6 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 								{"key": "2", "value":"退货入库"},
 								{"key": "3", "value":"调整入库"}
 							]
-<<<<<<< HEAD
-						})
-=======
 						}),
 						listeners: {
 						    change: function (combobox, newValue, oldValue, eOpts) {
@@ -247,7 +240,6 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 						        }
 						    }
 						}
->>>>>>> upstream/master
 					},{
 						xtype: 'ux.field.TextTriggerField',
 						fieldLabel: '收货仓库',
