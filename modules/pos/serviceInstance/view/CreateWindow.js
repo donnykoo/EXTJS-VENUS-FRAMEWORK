@@ -796,7 +796,7 @@ Ext.define('Module.pos.serviceInstance.view.CreateWindow', {
                 saveBtn.setDisabled(true);
                 pauseBtn.setDisabled(false);
                 startBtn.setDisabled(true);
-                cancelBtn.setDisabled(true);
+                cancelBtn.setDisabled(false);
                 failedBtn.setDisabled(false);
             } else if (record.get('Status') == 10 || record.get('Status') == 15 || record.get('Status') == 20) {
                 saveBtn.setDisabled(true);

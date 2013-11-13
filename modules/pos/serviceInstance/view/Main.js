@@ -24,7 +24,6 @@ Ext.define('Module.pos.serviceInstance.view.Main', {
                         fieldLabel: '施工单号',
                         name: 'IdNumber',
                         flex: 1,
-<<<<<<< HEAD
                     }, {
                         fieldLabel: '顾客名称',
                         name: 'CustomerName',
@@ -55,29 +54,6 @@ Ext.define('Module.pos.serviceInstance.view.Main', {
                         name: 'placeholder2',
                         submitValue: false
                     }]
-=======
-                        padding: '5 0 5 10'
-                    },
-
-                    defaultType: 'textfieldSearch',
-                    items: [
-                        {
-                            fieldLabel: '施工单号',
-                            name: 'IdNumber',
-                            flex: 1
-                        }, {
-                            fieldLabel: '顾客名称',
-                            name: 'CustomerName',
-                            flex: 1
-                        }, {
-                            xtype: 'hidden',
-                            name: 'placeholder2',
-                            flex: 1,
-                            submitValue: false
-                        }
-                    ]
-                }]
->>>>>>> 4e1b7350f6a044f493ff9b2b114021bd7b51a38d
             },
             gridConfig: {
                 tbar: [{
