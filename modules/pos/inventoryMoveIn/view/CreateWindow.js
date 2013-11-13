@@ -145,7 +145,47 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 						anchor: '-5',
 						name: 'RefNumber',
 						tabIndex: 5,
+<<<<<<< HEAD
 						emptyText: '如采购单、调拨单号'
+=======
+						emptyText: '如采购单、调拨单号',
+						textValid: true,
+						validator: function (value) {
+						    return this.textValid;
+						},
+						listeners: {
+						    blur: function (field, the, eOpts) {
+						        var moveInType = me.form.getForm().findField("MoveInType").getValue();
+						        if (moveInType == null) {
+						            field.textValid = '必须先选择入库类型';
+						            field.validate();
+						        }
+						        var refNumber = field.getValue();
+						        if (moveInType == 0 || moveInType == 1) {
+						            if (refNumber == '') {
+						                field.textValid = '原始单证编号不能为空';
+						                field.validate();
+						            }
+						        }
+						        Ext.Ajax.request({
+						            url: Ext.String.format("{0}/{1}/ValidateRefNumber", me.apiPath, me.objectId),
+						            method: 'POST',
+						            jsonData: { "RefNumber": refNumber , "MoveInType" : moveInType},
+						            success: function (response, opts) {
+						                field.clearInvalid();
+						                field.textValid = true;
+						                field.validate();
+						            },
+						            failure: function (response, opts) {
+						                field.textValid = "该单号不存在";
+						                field.validate();
+						                Ext.Logger.warn('server-side failure with status code ' + response.status);
+						            },
+						            scope: this
+						        });
+						    }
+						}
+>>>>>>> upstream/master
 					},{
 						xtype: 'hidden',
 						fieldLabel: 'ID',
@@ -183,7 +223,31 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 								{"key": "2", "value":"退货入库"},
 								{"key": "3", "value":"调整入库"}
 							]
+<<<<<<< HEAD
 						})
+=======
+						}),
+						listeners: {
+						    change: function (combobox, newValue, oldValue, eOpts) {
+						        var value = combobox.getValue();
+						        var upForm = combobox.up('form').getForm();
+						        if (value) {
+						            var refField = upForm.findField('RefNumber');
+						            if (value == 0 || value == 1) {
+						                if (refField.getValue() == '') {
+						                    refField.textValid = "请输入单号";
+						                    refField.validate();
+						                } else {
+						                    refField.fireEvent('blur', refField);
+						                }
+						            } else {
+						                refField.textValid = true;
+						                refField.clearInvalid();
+						            }
+						        }
+						    }
+						}
+>>>>>>> upstream/master
 					},{
 						xtype: 'ux.field.TextTriggerField',
 						fieldLabel: '收货仓库',

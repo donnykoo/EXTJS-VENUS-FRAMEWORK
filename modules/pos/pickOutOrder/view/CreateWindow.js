@@ -139,14 +139,7 @@ Ext.define('Module.pos.pickOutOrder.view.CreateWindow', {
 				            me.setBackRecord(record);
 				            me.setValue(code);
 				        }
-				    }, {
-				        xtype: 'textfield',
-				        fieldLabel: '施工单编号',
-				        anchor: '-5',
-				        name: 'RefNumber',
-				        tabIndex: 5,
-				        emptyText: '施工单编号'
-				    }, {
+				    },  {
 				        xtype: 'hidden',
 				        fieldLabel: 'ID',
 				        anchor: '-5',
@@ -182,7 +175,14 @@ Ext.define('Module.pos.pickOutOrder.view.CreateWindow', {
 								{ "key": "1", "value": "一般领料" }
 				            ]
 				        })
-				    }]
+				    }, {
+				        xtype: 'textfield',
+				        fieldLabel: '施工单编号',
+				        anchor: '-5',
+				        name: 'RefNumber',
+				        tabIndex: 5,
+				        emptyText: '施工单编号'
+				    }, ]
 				}
 			]
 		});

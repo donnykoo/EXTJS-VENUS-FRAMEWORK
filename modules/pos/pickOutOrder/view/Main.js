@@ -63,7 +63,7 @@ Ext.define('Module.pos.pickOutOrder.view.Main', {
                 { text: '创建日期', dataIndex: 'CreateDate', width: 160, xtype: 'datecolumn', format: 'Y-m-d H:i:j' },
                 {
                     text: '状态',
-                    dataIndex: 'Status',
+                    dataIndex: 'StatusValue',
                     width: 60,
                     renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                         if (value === 0) {
