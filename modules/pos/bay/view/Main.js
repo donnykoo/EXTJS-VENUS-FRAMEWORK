@@ -34,12 +34,7 @@ Ext.define('Module.pos.bay.view.Main', {
 				}]
 			},
 			gridConfig: {
-				tbar: {
-					xtype: 'toolbar',
-					border: true,
-					height: 30,
-					items: []
-				},
+
 			},
 			store: me.store ? me.store : Ext.data.StoreManager.lookup('Module.pos.bay.store.Bays'),
 			columns: [

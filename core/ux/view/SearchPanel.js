@@ -56,46 +56,7 @@ Ext.define('Ext.ux.view.SearchPanel', {
 		var grid = me.grid = Ext.create('Ext.grid.Panel', gridConfig);
 		
 		this.items = [form, grid];
-		
-		me.mon(me.store, {
-			beforeload: me.onStoreBeforeLoad,
-			scope: this
-		});
 	},
-	
-	onStoreBeforeLoad: function(store, operation, eOpts){
-		if(!operation.params){
-			operation.params = {};
-		}
-		
-		var me = this,
-			form = me.getForm(),
-			fields = form.getFields(),
-			filters = [];
-		
-		if(!form.isValid()){
-			return;
-		}
-		
-		fields.each(
-			function(item, index, length){
-				if(item.getODataFilter){
-					var filter = item.getODataFilter();
-					if(filter){
-						filters.push(filter);
-					}
-				}
-			}
-		);
-				
-		if(!Ext.isEmpty(filters)){
-			Ext.apply(operation.params, {
-				'$filter': filters.join(" and ")
-			});
-		}
-		
-	},
-	
 	
 	initComponent: function() {
 		var me = this;
@@ -207,7 +168,7 @@ Ext.define('Ext.ux.view.SearchPanel', {
 		
 		var store = me.getStore();
 		
-		store.loadPage(1, {
+		store.load({
 			params: params
 		});
 	}

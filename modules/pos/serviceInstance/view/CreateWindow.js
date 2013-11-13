@@ -1,5 +1,6 @@
 Ext.require([
     'Module.pos.serviceInstance.store.InstanceProducts',
+    'Ext.ux.field.DateTimeField',
     'Ext.ux.field.TextTriggerField',
     'Ext.ux.field.NumericField',
     'Module.pos.product.view.Main',
@@ -145,14 +146,14 @@ Ext.define('Module.pos.serviceInstance.view.CreateWindow', {
                             displayProps: ['Name'],
                             store: Ext.create('Module.pos.product.store.Products', {
                                 listeners: {
-                                    beforeload: function (store, operation, eOpts) {
+                                    beforeload: function(store, operation, eOpts) {
                                         var filter = " ProductType eq 'Service' ";
 
                                         if (operation && operation.params && operation.params['$filter']) {
                                             filter = Ext.String.format("{0} and {1}", filter, operation.params['$filter']);
                                         }
 
-                                        operation.params = Ext.apply(operation.params ? operation.params : {}, {
+                                        operation.params = Ext.apply(operation.params ? operation.params : { }, {
                                             '$filter': filter
                                         });
                                     }
@@ -192,8 +193,9 @@ Ext.define('Module.pos.serviceInstance.view.CreateWindow', {
                                 me.setBackRecord(record);
                                 me.setValue(code);
                             }
-                        }, {
-                            xtype: 'datefield',
+                        },
+                        {
+                            xtype: 'datetimefield',
                             fieldLabel: '计划开始时间',
                             name: 'PlanStartTime',
                             tabIndex: 4,
@@ -202,9 +204,9 @@ Ext.define('Module.pos.serviceInstance.view.CreateWindow', {
                             editable: false,
                             allowBlank: false,
                             timePicker: true,
-                            format: "Y-m-d"
-                        }, {
-                            xtype: 'datefield',
+                            format: "Y-m-d H:i:j"
+                        },{
+                            xtype: 'datetimefield',
                             fieldLabel: '计划结束时间',
                             name: 'PlanEndTime',
                             tabIndex: 4,
@@ -212,7 +214,7 @@ Ext.define('Module.pos.serviceInstance.view.CreateWindow', {
                             submitFormat: "Y-m-d\\TH:i:sO",
                             editable: false,
                             allowBlank: false,
-                            format: "Y-m-d"
+                            format: "Y-m-d H:i:j"
                         }, {
                             xtype: 'textfield',
                             fieldLabel: '车牌号',
@@ -780,26 +782,36 @@ Ext.define('Module.pos.serviceInstance.view.CreateWindow', {
             if (record.get('Status') == 0 && record.get('Id') > 0) {
                 //草稿
                 saveBtn.setDisabled(false);
-                startBtn.setDisabled(true);
+                startBtn.setDisabled(false);
                 pauseBtn.setDisabled(true);
                 cancelBtn.setDisabled(true);
                 failedBtn.setDisabled(true);
+            } else if (record.get('Status') == 1) {
+                saveBtn.setDisabled(true);
+                pauseBtn.setDisabled(true);
+                startBtn.setDisabled(false);
+                cancelBtn.setDisabled(false);
+                failedBtn.setDisabled(true);
             } else if (record.get('Status') == 5) {
-                //完成
                 saveBtn.setDisabled(true);
                 pauseBtn.setDisabled(false);
                 startBtn.setDisabled(true);
                 cancelBtn.setDisabled(true);
                 failedBtn.setDisabled(false);
+            } else if (record.get('Status') == 10 || record.get('Status') == 15 || record.get('Status') == 20) {
+                saveBtn.setDisabled(true);
+                pauseBtn.setDisabled(true);
+                startBtn.setDisabled(true);
+                cancelBtn.setDisabled(true);
+                failedBtn.setDisabled(true);
             } else if (record.get('Status') == 25) {
-                //已取消
                 saveBtn.setDisabled(true);
                 pauseBtn.setDisabled(true);
                 startBtn.setDisabled(false);
                 cancelBtn.setDisabled(true);
                 failedBtn.setDisabled(true);
             } else {
-                saveBtn.setDisabled(true);
+                saveBtn.setDisabled(false);
                 startBtn.setDisabled(true);
                 pauseBtn.setDisabled(true);
                 cancelBtn.setDisabled(true);

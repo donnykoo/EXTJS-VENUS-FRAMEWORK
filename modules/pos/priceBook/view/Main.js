@@ -30,12 +30,7 @@ Ext.define('Module.pos.priceBook.view.Main', {
 				}]
 			},
 			gridConfig: {
-				tbar: {
-					xtype: 'toolbar',
-					border: true,
-					height: 30,
-					items: []
-				},
+
 			},
 			store: Ext.data.StoreManager.lookup('Module.pos.priceBook.store.PriceBooks'),
 			columns: [

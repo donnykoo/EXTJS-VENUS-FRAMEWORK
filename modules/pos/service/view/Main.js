@@ -31,12 +31,7 @@ Ext.define('Module.pos.service.view.Main', {
 				}]
 			},
 			gridConfig: {
-				tbar: {
-					xtype: 'toolbar',
-					border: true,
-					height: 30,
-					items: []
-				},			
+			
 			},
 			store: Ext.data.StoreManager.lookup('Module.pos.service.store.Services'),
 			columns: [
