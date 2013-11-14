@@ -8,7 +8,7 @@
         { name: 'UpdateBy', type: 'string' },
         { name: 'CreateDate', type: 'date' },
         { name: 'CreateBy', type: 'string' },
-        {name:'IdNumber',type:'string'},
+        { name: 'IdNumber', type: 'string' },
         { name: 'CustomerNumber', type: 'string' },
         { name: 'TransactionDate', type: 'date' },
         { name: 'MachineCode', type: 'string' },
@@ -20,12 +20,14 @@
         { name: 'Lines', type: 'auto' },
         { name: 'Promotions', type: 'auto' },
         { name: 'Ref', type: 'string' },
-        { name: 'Memo', type: 'string' }
+        { name: 'Memo', type: 'string' },
+        { name: 'POSOrderType', type: 'string' },
+        { name: 'OrderAmount', type: 'decimal' }
     ],
     idProperty: 'Id',
     proxy: {
         type: 'ajax',
-        url: Ext.String.format('{0}/POSOrders?$inlinecount=allpages', basket.dataSource),
+        url: Ext.String.format('{0}/POSOrderDetails?$inlinecount=allpages', basket.dataSource),
         reader: {
             type: 'json',
             root: 'value',

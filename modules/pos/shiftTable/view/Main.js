@@ -4,6 +4,7 @@
 
     initComponent: function() {
         var me = this;
+		
         Ext.apply(me, {
             formConfig: {
 				items: [{
@@ -12,7 +13,7 @@
 						flex: 1,
 						padding: '0 0 0 10'
 					},
-
+					
 					defaultType: 'textfieldSearch',
 					items: [
 					{
@@ -27,7 +28,7 @@
 				]
 				}]
 			},
-
+		
 		gridConfig: {
 				tbar: [{
 			    xtype: 'button',
@@ -53,7 +54,7 @@
 				{ text: 'End Time', dataIndex: 'EndTime', width: 160 }
 			]
         });
-
+		
         me.callParent();
     }
 });

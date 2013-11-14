@@ -13,9 +13,10 @@
 			{name: '工位查询', module: 'pos.bay'}, 
 			{name: '员工查询', module: 'pos.staff' },
 			{name: '设备注册表', module: 'pos.hardwareRegistry' },
-			{name: '虚拟仓库', module: 'pos.virtualStock' }
+			{name: '虚拟仓库', module: 'pos.virtualStock' },
+			{name:'盘点',module:'pos.stockTake'}
 		]
-	}, 
+	},
 	{
 		name: 'POS运营管理',
 		modules: [
@@ -42,6 +43,9 @@
 			},
 			{
 				name: '领料单', module: 'pos.pickOutOrder' 
+			},
+			{
+				name: '采购订单', module: 'pos.purchaseOrder' 
 			}
 		]
 	}, 

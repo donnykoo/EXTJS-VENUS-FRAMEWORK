@@ -109,3 +109,26 @@ Ext.define('Ext.form.field.DateSearch', {
 		return Ext.String.format("{0} {1} datetimeoffset'{2}'", this.getName(), operator, basket.UTCDateString(val));
 	}
 });
+
+
+
+
+
+Ext.define('Ext.form.field.ComboSearch', {
+    extend: 'Ext.form.field.ComboBox',
+    alias: 'widget.comboboxSearch',
+    /**
+	 * If the returned value is False, then this filter will not be added into the $filter parameter
+	 */
+    getODataFilter: function () {
+        var me = this,
+			val = me.getValue();
+        if (Ext.isEmpty(val)) {
+            return false;
+        }
+
+        //If contains % in the text field, then this is pattern match search
+
+       return Ext.String.format("{0} eq '{1}'", this.getName(), val);
+    }
+});

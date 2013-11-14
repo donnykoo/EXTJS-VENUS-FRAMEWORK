@@ -33,12 +33,12 @@
                 }]
             },
             gridConfig: {
-							tbar: {
-								xtype: 'toolbar',
-								border: true,
-								height: 30,
-								items: []
-							},
+                tbar: {
+                    xtype: 'toolbar',
+                    border: true,
+                    height: 30,
+                    items: []
+                },
             },
 			
 			
