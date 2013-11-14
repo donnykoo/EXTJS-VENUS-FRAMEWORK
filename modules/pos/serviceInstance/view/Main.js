@@ -12,48 +12,49 @@ Ext.define('Module.pos.serviceInstance.view.Main', {
         Ext.apply(me, {
             formConfig: {
                 height: 60,
-                anchor: '100%',
-                layout: 'hbox',
-                defaults: {
-                    flex: 1,
-                    padding: '5 0 5 10'
-                },
-
-                defaultType: 'textfieldSearch',
                 items: [{
-                        fieldLabel: '施工单号',
-                        name: 'IdNumber',
+                    layout: 'hbox',
+                    defaults: {
                         flex: 1,
-                    }, {
-                        fieldLabel: '顾客名称',
-                        name: 'CustomerName',
-                        flex: 1,
-                    }, {
-                        xtype: 'comboboxSearch',
-                        fieldLabel: '状态',
-                        tabIndex: 2,
-                        anchor: '100%',
-                        name: 'Status',
-                        queryMode: 'local',
-                        displayField: 'value',
-                        valueField: 'key',
-                        store: Ext.create('Ext.data.Store', {
-                            fields: ['key', 'value'],
-                            data: [
-                                { "key": "Pending", "value": "新建" },
-                                { "key": "Ready", "value": "进场" },
-                                { "key": "Started", "value": "开始" },
-                                { "key": "Completed", "value": "完成" },
-                                { "key": "Cancelled", "value": "取消" },
-                                { "key": "Failed", "value": "失败" },
-                                { "key": "Pause", "value": "暂停" }
-                            ]
-                        })
-                    }, {
-                        xtype: 'hidden',
-                        name: 'placeholder2',
-                        submitValue: false
-                    }]
+                        padding: '5 0 5 10'
+                    },
+
+                    defaultType: 'textfieldSearch',
+                    items: [{
+                            fieldLabel: '施工单号',
+                            name: 'IdNumber',
+                            flex: 1,
+                        }, {
+                            fieldLabel: '顾客名称',
+                            name: 'CustomerName',
+                            flex: 1,
+                        }, {
+                            xtype: 'comboboxSearch',
+                            fieldLabel: '状态',
+                            flex: 1,
+                            name: 'Status',
+                            queryMode: 'local',
+                            displayField: 'value',
+                            valueField: 'key',
+                            store: Ext.create('Ext.data.Store', {
+                                fields: ['key', 'value'],
+                                data: [
+                                    { "key": "Pending", "value": "新建" },
+                                    { "key": "Ready", "value": "进场" },
+                                    { "key": "Started", "value": "开始" },
+                                    { "key": "Completed", "value": "完成" },
+                                    { "key": "Cancelled", "value": "取消" },
+                                    { "key": "Failed", "value": "失败" },
+                                    { "key": "Pause", "value": "暂停" }
+                                ]
+                            })
+                        }, {
+                            xtype: 'hidden',
+                            name: 'placeholder2',
+                            flex: 1,
+                            submitValue: false
+                        }]
+                }]
             },
             gridConfig: {
                 tbar: [{
