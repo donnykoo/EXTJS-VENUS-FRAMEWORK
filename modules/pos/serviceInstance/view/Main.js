@@ -11,50 +11,71 @@ Ext.define('Module.pos.serviceInstance.view.Main', {
 
         Ext.apply(me, {
             formConfig: {
-                height: 60,
+                height: 100,
                 items: [{
-                    layout: 'hbox',
-                    defaults: {
-                        flex: 1,
-                        padding: '5 0 5 10'
-                    },
+                        layout: 'hbox',
+                        defaults: {
+                            flex: 1,
+                            padding: '5 0 5 10'
+                        },
 
-                    defaultType: 'textfieldSearch',
-                    items: [{
-                            fieldLabel: '施工单号',
-                            name: 'IdNumber',
+                        defaultType: 'textfieldSearch',
+                        items: [
+                            {
+                                fieldLabel: '施工单号',
+                                name: 'IdNumber',
+                                flex: 1,
+                            }, {
+                                fieldLabel: '顾客名称',
+                                name: 'CustomerName',
+                                flex: 1
+                            }, {
+                                xtype: 'hidden',
+                                name: 'placeholder2',
+                                flex: 1,
+                                submitValue: false
+                            }
+                        ]
+                    }, {
+                        layout: 'hbox',
+                        defaults: {
                             flex: 1,
-                        }, {
-                            fieldLabel: '顾客名称',
-                            name: 'CustomerName',
-                            flex: 1,
-                        }, {
-                            xtype: 'comboboxSearch',
-                            fieldLabel: '状态',
-                            flex: 1,
-                            name: 'Status',
-                            queryMode: 'local',
-                            displayField: 'value',
-                            valueField: 'key',
-                            store: Ext.create('Ext.data.Store', {
-                                fields: ['key', 'value'],
-                                data: [
-                                    { "key": "Pending", "value": "新建" },
-                                    { "key": "Ready", "value": "进场" },
-                                    { "key": "Started", "value": "开始" },
-                                    { "key": "Completed", "value": "完成" },
-                                    { "key": "Cancelled", "value": "取消" },
-                                    { "key": "Failed", "value": "失败" },
-                                    { "key": "Pause", "value": "暂停" }
-                                ]
-                            })
-                        }, {
-                            xtype: 'hidden',
-                            name: 'placeholder2',
-                            flex: 1,
-                            submitValue: false
-                        }]
-                }]
+                            padding: '5 0 5 10'
+                        },
+
+                        defaultType: 'textfieldSearch',
+                        items: [{
+                                fieldLabel: '车牌',
+                                name: 'PlateNumber',
+                                flex: 1
+                            }, {
+                                xtype: 'comboboxSearch',
+                                fieldLabel: '状态',
+                                flex: 1,
+                                name: 'Status',
+                                queryMode: 'local',
+                                displayField: 'value',
+                                valueField: 'key',
+                                store: Ext.create('Ext.data.Store', {
+                                    fields: ['key', 'value'],
+                                    data: [
+                                        { "key": "Pending", "value": "新建" },
+                                        { "key": "Ready", "value": "进场" },
+                                        { "key": "Started", "value": "开始" },
+                                        { "key": "Completed", "value": "完成" },
+                                        { "key": "Cancelled", "value": "取消" },
+                                        { "key": "Failed", "value": "失败" },
+                                        { "key": "Pause", "value": "暂停" }
+                                    ]
+                                })
+                            }, {
+                                xtype: 'hidden',
+                                name: 'placeholder',
+                                flex: 1,
+                                submitValue: false
+                            }
+                        ]
+                    }]
             },
             gridConfig: {
                 tbar: [{
@@ -68,12 +89,26 @@ Ext.define('Module.pos.serviceInstance.view.Main', {
                 { xtype: 'rownumberer' },
                 { text: '施工单号', dataIndex: 'IdNumber', width: 120 },
                 { text: '顾客', dataIndex: 'CustomerName', width: 120 },
+                { text: '车牌', dataIndex: 'PlateNumber', width: 120 },
                 { text: '服务', dataIndex: 'ServiceNumber', width: 120 },
                 { text: '操作人', dataIndex: 'WorkerNumber', width: 120 },
                 { text: '计划开始时间', dataIndex: 'PlanStartTime', width: 120, xtype: 'datecolumn', format: 'Y-m-d H:i:j' },
                 { text: '计划结束时间', dataIndex: 'PlanEndTime', width: 120, xtype: 'datecolumn', format: 'Y-m-d H:i:j' },
                 { text: '实际开始时间', dataIndex: 'ActualStartTime', width: 120, xtype: 'datecolumn', format: 'Y-m-d H:i:j' },
                 { text: '实际结束时间', dataIndex: 'ActualEndTime', width: 120, xtype: 'datecolumn', format: 'Y-m-d H:i:j' },
+                {
+                    text: '类型',
+                    dataIndex: 'OrderType',
+                    width: 60,
+                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        if (value === 'Normal') {
+                            return '正常';
+                        } else if (value === 'Repair') {
+                            return '返修';
+                        }
+                        return value;
+                    }
+                },
                 {
                     text: '状态',
                     dataIndex: 'Status',
