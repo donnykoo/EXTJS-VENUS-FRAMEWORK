@@ -20,18 +20,6 @@ Ext.onReady(function() {
     Ext.DomHelper.insertFirst(Ext.query('.x-mask-msg')[0], {
         cls: 'x-splash-icon'
     });
-	
-	//Start the activity monitor
-	Ext.ux.ActivityMonitor.init({
-		verbose : true,
-		interval    : (100 * 60 * 1), //6 sec
-		maxInactive : (100 * 60 * 5), //30 sec
-		isInactive: function(){
-			//Slide in the login window
-			
-		}
-	});
-	Ext.ux.ActivityMonitor.start();
 });
 
 
@@ -59,6 +47,8 @@ Ext.application({
 		'ContentPanel',
 		'Header'
     ],
+	
+	views: ['LoginFormPanel'],
 	
 	launch: function() {
 		var me = this;
@@ -125,8 +115,36 @@ Ext.application({
 	
 		Ext.Logger.debug("1. Launched ............................ 100%");
 		
+		this.loginWindow = Ext.widget('loginformpanel', {
+			
+		});
 		
+		me.on({
+			idleOut: me.onIdleOut
+		});
+		
+		//Start the activity monitor
+		Ext.ux.ActivityMonitor.init({
+			verbose : true,
+			interval    : (100 * 60 * 1), //6 sec
+			maxInactive : (100 * 60 * 5), //30 sec
+			isInactive: function(){
+				me.fireEvent("idleOut");
+			}
+		});
+		Ext.ux.ActivityMonitor.start();
     },
+	
+	onIdleOut: function()
+	{
+		var me = this,
+			header = me.getHeaderView();
+			
+		if(me.loginWindow){
+			me.loginWindow.show();
+		}
+		
+	},
 	
 	onAjaxRequestComplete: function(conn, response, options, eOpts){
 		var me = this;
