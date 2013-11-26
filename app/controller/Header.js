@@ -14,6 +14,7 @@ Ext.define('App.controller.Header', {
 		me.application.on({
 			authFailed: me.onAuthFailed
 		});
+		
     },
 	
 
@@ -31,7 +32,10 @@ Ext.define('App.controller.Header', {
 			Avatar: 'resources/images/avatar.jpg',
 			NeedLogin: true
 		});
+		
 	},
+	
+	
 	
 	onLaunch: function(appliation){
 		
