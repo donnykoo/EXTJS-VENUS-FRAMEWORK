@@ -39,8 +39,16 @@ Ext.define('Module.pos.stockTake.view.ReportDetailWindow', {
             ptype: 'headericons',
             pluginId: 'headerbuttons',
             headerButtons: [{
-                xtype: 'button',
-                itemId:'',
+                    xtype: 'button',
+                    itemId: 'detail-btn',
+                    text: '查看明细',
+                    height: 30,
+                    width: 60,
+                    scope: this,
+                    handler: this.onDetailClicked
+                }, {
+                    xtype: 'button',
+                    itemId: 'complete-btn',
                     text: '完成调整',
                     height: 30,
                     width: 60,
@@ -193,6 +201,16 @@ Ext.define('Module.pos.stockTake.view.ReportDetailWindow', {
         this.objectData = data;
     },
     
+    onDetailClicked: function (btn, event, eOpts) {
+        var me = this;
+        if (!me.approveWindow) {
+            me.approveWindow = Ext.widget('stockTakeApproveWindow');
+        }
+        me.approveWindow.setObjectId(me.getObjectId());
+        me.approveWindow.setObjectData(me.getObjectData());
+        me.approveWindow.show();
+        me.close();
+    },
     onCompleteClicked:function (btn, event, eOpts) {
         var me = this;
         if(!me.approveWindow) {
@@ -208,6 +226,26 @@ Ext.define('Module.pos.stockTake.view.ReportDetailWindow', {
         var me = this;
         me.close();
     },
+    
+    configHeader: function (record) {
+        var me = this;
+
+        if (record) {
+            var plugin = me.getPlugin('headerbuttons'),
+                header = plugin.getHeader(),
+                completeBtn = header.getComponent('complete-btn'),
+                detailBtn = header.getComponent('detail-btn');
+
+            if (record.get('Status') == 0) {
+                detailBtn.hide();
+                completeBtn.show();
+            } else if(record.get('Status') == 1) {
+                completeBtn.hide();
+                detailBtn.show();
+            }
+        }
+    },
+
 
     refresh: function (data) {
         var me = this,
@@ -219,6 +257,7 @@ Ext.define('Module.pos.stockTake.view.ReportDetailWindow', {
             var record = Ext.create('Module.pos.stockTake.model.StockTakeLine', data);
             this.getForm().getForm().loadRecord(record);
             this.getStore().loadData(data.StockTakeReports);
+            me.configHeader(record);
         } finally {
             topWin.setDisabled(false);
         }
@@ -275,6 +314,9 @@ Ext.define('Module.pos.stockTake.view.ReportDetailWindow', {
     listeners: {
         show: function (window, eOpts) {
             window.load();
+        },
+        beforerender:function () {
+            
         }
     }
 });

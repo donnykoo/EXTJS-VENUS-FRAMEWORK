@@ -30,18 +30,17 @@ Ext.define('Module.pos.stockTake.view.ApproveWindow', {
     objectData: { },
 
     scanBuffer: [],
-    
 
     apiPath: Ext.String.format('{0}/api/StockTakeLinesApi', "/" === basket.contextPath ? "" : basket.contextPath),
-    
 
-    initComponent: function () {
+    initComponent: function() {
         var me = this;
         me.plugins = [{
             ptype: 'headericons',
             pluginId: 'headerbuttons',
             headerButtons: [{
                     xtype: 'button',
+                    itemId: 'approve-btn',
                     text: '批准',
                     height: 30,
                     width: 60,
@@ -56,12 +55,11 @@ Ext.define('Module.pos.stockTake.view.ApproveWindow', {
                     handler: this.onCloseClicked
                 }]
         }];
-        
 
 
         var store = me.store = Ext.create('Module.pos.stockTake.store.StockTakeReports', {
             listeners: {
-
+                
             }
         });
 
@@ -92,61 +90,59 @@ Ext.define('Module.pos.stockTake.view.ApproveWindow', {
                     text: '差异',
                     width: 160,
                     xtype: 'numbercolumn',
-                    renderer: function (value, cellmeta, record, rowIndex, columnIndex, store) {
+                    renderer: function(value, cellmeta, record, rowIndex, columnIndex, store) {
                         return record.data["ActualNumber"] - record.data["StockNumber"];
                     }
                 }
             ],
             listeners: {
-                edit: function (editor, context) {
+                edit: function(editor, context) {
 
                 }
             }
         });
 
-        this.items =  [grid];
+        this.items = [grid];
 
         me.callParent();
 
     },
-    
 
-    getStore: function () {
+    getStore: function() {
         return this.store;
     },
 
-    getGrid: function () {
+    getGrid: function() {
         return this.grid;
     },
 
-    getObjectId: function () {
+    getObjectId: function() {
         return this.objectId;
     },
-    setObjectId: function (id) {
+    setObjectId: function(id) {
         this.objectId = id;
     },
-    getObjectVersion: function () {
+    getObjectVersion: function() {
         return this.objectVersion;
     },
-    setObjectVersion: function (version) {
+    setObjectVersion: function(version) {
         this.objectVersion = version;
     },
-    getObjectData: function () {
+    getObjectData: function() {
         return this.objectData;
     },
-    setObjectData: function (data) {
+    setObjectData: function(data) {
         this.objectData = data;
     },
-    
 
-    onApproveClicked:function (btn, event, eOpts) {
+    onApproveClicked: function(btn, event, eOpts) {
         var me = this;
 
         Ext.Msg.confirm('批准', '您确定批准?',
-            function (btn, text) {
+            function(btn, text) {
                 if (btn == 'ok' || btn == 'yes' || btn == '确定') {
 
-                    var onBeforeRequest = function (conn, options, eOpts) {
+                    var onBeforeRequest = function(conn, options, eOpts) {
                         Ext.getBody().mask('请求提交中......');
                         Ext.Ajax.un('beforerequest', onBeforeRequest, this);
                     };
@@ -163,14 +159,14 @@ Ext.define('Module.pos.stockTake.view.ApproveWindow', {
                         params: {
                             Id: me.getObjectId()
                         },
-                        success: function (response, opts) {
+                        success: function(response, opts) {
                             var obj = Ext.decode(response.responseText);
                             var window = Ext.getCmp('StockTakeReportWindow');
                             window.setObjectId(obj.Id);
                             window.load();
                             me.close();
                         },
-                        failure: function (response, opts) {
+                        failure: function(response, opts) {
                             Ext.Logger.warn('server-side failure with status code ' + response.status);
                         },
                         scope: this
@@ -179,12 +175,28 @@ Ext.define('Module.pos.stockTake.view.ApproveWindow', {
             }, this);
     },
 
-    onCloseClicked: function (btn, event, eOpts) {
+    onCloseClicked: function(btn, event, eOpts) {
         var me = this;
         me.close();
     },
-    
-    refresh: function (data) {
+
+    configHeader: function(record) {
+        var me = this;
+
+        if (record) {
+            var plugin = me.getPlugin('headerbuttons'),
+                header = plugin.getHeader(),
+                approveBtn = header.getComponent('approve-btn');
+
+            if (record.get('Status') == 0) {
+                approveBtn.show();
+            } else if (record.get('Status') == 1) {
+                approveBtn.hide();
+            }
+        }
+    },
+
+    refresh: function(data) {
         var me = this,
             topWin = Ext.WindowMgr.getActive();
         try {
@@ -193,26 +205,25 @@ Ext.define('Module.pos.stockTake.view.ApproveWindow', {
             this.setObjectData(data);
             var record = Ext.create('Module.pos.stockTake.model.StockTakeLine', data);
             var lines = '';
-            if(data.StockTakeReports) {
+            if (data.StockTakeReports) {
                 lines = data.StockTakeReports;
                 for (var i = 0; i < lines.length; i++) {
                     if (lines[i].ActualNumber - lines[i].StockNumber == 0) {
-                        Ext.Array.remove(lines,lines[i]);
+                        Ext.Array.remove(lines, lines[i]);
                     }
                 }
             }
             this.getStore().loadData(lines);
+            me.configHeader(record);
         } finally {
             topWin.setDisabled(false);
         }
     },
-    
 
     listeners: {
-        show: function (window, eOpts) {
+        show: function(window, eOpts) {
             var me = this;
             window.refresh(this.getObjectData());
         }
     }
-
 });

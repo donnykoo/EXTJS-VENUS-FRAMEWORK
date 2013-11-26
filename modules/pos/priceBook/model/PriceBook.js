@@ -1,6 +1,6 @@
 Ext.define('Module.pos.priceBook.model.PriceBook', {
     extend: 'Ext.data.Model',
-    fields: ['Id', 'Version', 'Active', 'LastUpdate', 'SKU', 'ProductName', 'Price', 'StartDate', 'EndDate', 'Store', 'Type'],
+    fields: ['Id', 'Version', 'Active', 'LastUpdate', 'SKU', 'Name', 'Price', 'StartDate', 'EndDate', 'Store', 'Type'],
 	idProperty: 'Id',
     proxy: {
         type: 'ajax',

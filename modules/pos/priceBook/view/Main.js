@@ -41,7 +41,7 @@ Ext.define('Module.pos.priceBook.view.Main', {
 			columns: [
 				{ text: 'Store',  dataIndex: 'Store', width: 100 },
 				{ text: 'SKU',  dataIndex: 'SKU', width: 100 },
-				{ text: 'Name', dataIndex: 'ProductName', flex: 1 },
+				{ text: 'Name', dataIndex: 'Name', flex: 1 },
 				{ text: 'Price', dataIndex: 'Price', width: 160 },
 				{ text: 'Effective Date', dataIndex: 'StartDate', width: 160 },
 				{ text: 'End Date', dataIndex: 'EndDate', width: 160 },
