@@ -156,30 +156,32 @@ Ext.define('Module.pos.inventoryMoveIn.view.CreateWindow', {
 						        if (moveInType == null) {
 						            field.textValid = '必须先选择入库类型';
 						            field.validate();
+						            return;
 						        }
 						        var refNumber = field.getValue();
 						        if (moveInType == 0 || moveInType == 1) {
 						            if (refNumber == '') {
 						                field.textValid = '原始单证编号不能为空';
 						                field.validate();
+						                return;
 						            }
+						            Ext.Ajax.request({
+						                url: Ext.String.format("{0}/{1}/ValidateRefNumber", me.apiPath, me.objectId),
+						                method: 'POST',
+						                jsonData: { "RefNumber": refNumber, "MoveInType": moveInType },
+						                success: function (response, opts) {
+						                    field.clearInvalid();
+						                    field.textValid = true;
+						                    field.validate();
+						                },
+						                failure: function (response, opts) {
+						                    field.textValid = "该单号不存在";
+						                    field.validate();
+						                    Ext.Logger.warn('server-side failure with status code ' + response.status);
+						                },
+						                scope: this
+						            });
 						        }
-						        Ext.Ajax.request({
-						            url: Ext.String.format("{0}/{1}/ValidateRefNumber", me.apiPath, me.objectId),
-						            method: 'POST',
-						            jsonData: { "RefNumber": refNumber , "MoveInType" : moveInType},
-						            success: function (response, opts) {
-						                field.clearInvalid();
-						                field.textValid = true;
-						                field.validate();
-						            },
-						            failure: function (response, opts) {
-						                field.textValid = "该单号不存在";
-						                field.validate();
-						                Ext.Logger.warn('server-side failure with status code ' + response.status);
-						            },
-						            scope: this
-						        });
 						    }
 						}
 					},{

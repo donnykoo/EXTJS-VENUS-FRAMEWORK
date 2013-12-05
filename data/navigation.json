@@ -45,7 +45,13 @@
 				name: '领料单', module: 'pos.pickOutOrder' 
 			},
 			{
-				name: '采购订单', module: 'pos.purchaseOrder' 
+				name: '采购订单', module: 'pos.purchaseOrder'
+			},
+			{
+				name: '调拨出库单', module: 'pos.transferOrderOut' 
+			},
+			{
+				name: '调拨入库单', module: 'pos.transferOrderIn' 
 			}
 		]
 	}, 
