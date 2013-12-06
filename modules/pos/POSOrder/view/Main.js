@@ -49,6 +49,7 @@ Ext.define('Module.pos.POSOrder.view.Main', {
             columns: [
                 { text: 'POS单号', dataIndex: 'IdNumber', width: 150 },
                 { text: '会员号', dataIndex: 'CustomerNumber', width: 150 },
+                { text: '操作人', dataIndex: 'UpdateBy', width: 150 },
                 { text: '下单时间', dataIndex: 'TransactionDate', width: 150, xtype: 'datecolumn' },
                 { text: '总金额', dataIndex: 'OrderAmount', width: 150, xtype: 'numbercolumn' },
                 { text: '实收金额', dataIndex: 'TotalReceivable', width: 150, xtype: 'numbercolumn' },

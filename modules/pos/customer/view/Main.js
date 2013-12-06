@@ -18,7 +18,7 @@ Ext.define('Module.pos.customer.view.Main', {
                         defaultType: 'textfieldSearch',
                         items: [
                             {
-                                fieldLabel: '会员编号',
+                                fieldLabel: '会员号',
                                 name: 'IdNumber',
                                 flex: 1
                             }, {

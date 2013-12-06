@@ -18,11 +18,11 @@ Ext.define('Module.pos.vehicle.view.Main', {
 					defaultType: 'textfieldSearch',
 					items: [
 						{
-							fieldLabel: '车牌号',
+						    fieldLabel: '车辆编号',
 							name: 'PlateNumber',
 							flex: 1
 						},{
-							fieldLabel: '客户编号',
+						    fieldLabel: '顾客编号',
 							name: 'CustomerNumber',
 							flex: 1
 						},{

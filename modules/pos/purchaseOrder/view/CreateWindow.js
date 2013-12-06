@@ -72,7 +72,7 @@ Ext.define('Module.pos.purchaseOrder.view.CreateWindow', {
                 {
                     items: [{
                             xtype: 'textfield',
-                            fieldLabel: '施工单号',
+                            fieldLabel: '订单号',
                             anchor: '-5',
                             name: 'IdNumber',
                             submitValue: false,
@@ -89,7 +89,7 @@ Ext.define('Module.pos.purchaseOrder.view.CreateWindow', {
                             tabIndex: 1
                         },{
                             xtype: 'datetimefield',
-                            fieldLabel: '下单时间',
+                            fieldLabel: '预计抵达时间',
                             name: 'ExpectedArrivalDate',
                             tabIndex: 4,
                             anchor: '100%',

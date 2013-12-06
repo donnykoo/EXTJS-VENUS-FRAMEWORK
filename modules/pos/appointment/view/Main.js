@@ -2,49 +2,49 @@ Ext.define('Module.pos.appointment.view.Main', {
     extend : 'Ext.ux.view.SearchPanel',
     alias  : 'widget.appointmentMainView',
 	
-	createItems : function(){
-		var me = this,
-			formConfig = me.formConfig || {},
-			gridConfig = me.gridConfig || {},
-			store = me.store,
-			columns = me.columns;
+	//createItems : function(){
+	//	var me = this,
+	//		formConfig = me.formConfig || {},
+	//		gridConfig = me.gridConfig || {},
+	//		store = me.store,
+	//		columns = me.columns;
 			
-		formConfig = Ext.apply(me.defaultFormConfig, formConfig);
-		formConfig.buttons = [
-			{ 
-				itemId: 'search-btn',
-				text: 'Search',
-				handler: function(btn, event, eOpts){
-					me.onSearchButtonClicked(btn, event, eOpts);
-				}
-			},
-			{ 
-				itemId: 'reset-btn',
-				text: 'Reset', handler: function(){
-					form.getForm().reset();
-				} 
-			}
-		];
+	//	formConfig = Ext.apply(me.defaultFormConfig, formConfig);
+	//	formConfig.buttons = [
+	//		{ 
+	//			itemId: 'search-btn',
+	//			text: 'Search',
+	//			handler: function(btn, event, eOpts){
+	//				me.onSearchButtonClicked(btn, event, eOpts);
+	//			}
+	//		},
+	//		{ 
+	//			itemId: 'reset-btn',
+	//			text: 'Reset', handler: function(){
+	//				form.getForm().reset();
+	//			} 
+	//		}
+	//	];
 		
-		gridConfig = Ext.apply(me.defaultGridConfig, gridConfig);	
-		gridConfig = Ext.apply(gridConfig, {
-			store: me.store,
-			columns: me.columns,
-			dockedItems: [{
-				xtype: 'pagingtoolbar',
-				store: me.store,
-				dock: 'bottom',
-				displayInfo: true
-			}]
-		});
+	//	gridConfig = Ext.apply(me.defaultGridConfig, gridConfig);	
+	//	gridConfig = Ext.apply(gridConfig, {
+	//		store: me.store,
+	//		columns: me.columns,
+	//		dockedItems: [{
+	//			xtype: 'pagingtoolbar',
+	//			store: me.store,
+	//			dock: 'bottom',
+	//			displayInfo: true
+	//		}]
+	//	});
 		
-		//1. Create the Form Panel
-		var form = me.form = Ext.create('Ext.form.Panel', formConfig);
+	//	//1. Create the Form Panel
+	//	var form = me.form = Ext.create('Ext.form.Panel', formConfig);
 		
-		var grid = me.grid = Ext.create('Ext.grid.Panel', gridConfig);
+	//	var grid = me.grid = Ext.create('Ext.grid.Panel', gridConfig);
 		
-		this.items = [form, grid];
-	},
+	//	this.items = [form, grid];
+	//},
 	
     initComponent: function() {
         var me = this;

@@ -42,7 +42,7 @@ Ext.define('Module.pos.service.view.Main', {
 			columns: [
 				{ text: '服务编号',  dataIndex: 'SKU', width: 100 },
 				{ text: '名称', dataIndex: 'Name', width: 160 },
-				{ text: '分类', dataIndex: 'CategoryName', width: 160 },
+				{ text: '服务分类', dataIndex: 'CategoryName', width: 160 },
 				{ text: '用时', dataIndex: 'Duration', width: 80,
 					renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 						return Ext.String.format("{0}分钟", value);

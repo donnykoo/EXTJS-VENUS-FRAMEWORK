@@ -142,6 +142,7 @@ Ext.define('Module.pos.serviceInstance.view.CreateWindow', {
                             anchor: '-5',
                             name: 'ServiceProductSKU',
                             filterName: 'SKU',
+                            editable:false,
                             allowBlank: false,
                             displayProps: ['Name'],
                             store: Ext.create('Module.pos.product.store.Products', {
@@ -179,6 +180,7 @@ Ext.define('Module.pos.serviceInstance.view.CreateWindow', {
                             name: 'WorkerNumber',
                             filterName: 'StaffNumber',
                             allowBlank: false,
+                            editable: false,
                             displayProps: ['Name'],
                             store: Ext.create('Module.pos.staff.store.Staffs', { }),
                             windowConfig: {
@@ -243,12 +245,12 @@ Ext.define('Module.pos.serviceInstance.view.CreateWindow', {
                 {
                     items: [{
                             xtype: 'ux.field.TextTriggerField',
-                            fieldLabel: '会员',
+                            fieldLabel: '顾客',
                             tabIndex: 4,
                             anchor: '100%',
                             name: 'CustomerName',
                             filterName: 'Name',
-                            allowBlank: false,
+                            editable: false,
                             displayProps: ['Name'],
                             store: Ext.create('Module.pos.customer.store.Customers', { }),
                             windowConfig: {
@@ -271,6 +273,7 @@ Ext.define('Module.pos.serviceInstance.view.CreateWindow', {
                             name: 'VehicleModel',
                             filterName: 'Brand',
                             allowBlank: false,
+                            editable: false,
                             displayProps: ['Year'],
                             store: Ext.create('Module.pos.vehicleModel.store.VehicleModels', { }),
                             windowConfig: {
@@ -280,7 +283,7 @@ Ext.define('Module.pos.serviceInstance.view.CreateWindow', {
                             },
                             itemSelected: function(window, innerGrid, record, item, index, e, eOpts) {
                                 var me = this,
-                                    code = record.get("Brand");
+                                    code = record.get("Manufacturer") + "-" + record.get("Brand") + "-" + record.get("Year") + "-" + record.get("Model") + "-" + record.get("Displace") + "-" + record.get("Trim");
 
                                 me.setBackRecord(record);
                                 me.setValue(code);
@@ -299,6 +302,7 @@ Ext.define('Module.pos.serviceInstance.view.CreateWindow', {
                             anchor: '100%',
                             name: 'BayNumber',
                             filterName: 'BayNumber',
+                            editable: false,
                             allowBlank: false,
                             displayProps: ['Name'],
                             store: Ext.create('Module.pos.bay.store.Bays', { }),
@@ -321,6 +325,7 @@ Ext.define('Module.pos.serviceInstance.view.CreateWindow', {
                             tabIndex: 2,
                             anchor: '100%',
                             name: 'OrderType',
+                            editable: false,
                             queryMode: 'local',
                             displayField: 'value',
                             valueField: 'key',

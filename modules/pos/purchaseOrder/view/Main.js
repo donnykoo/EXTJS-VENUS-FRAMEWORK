@@ -44,7 +44,7 @@
             store: me.store ? me.store : Ext.data.StoreManager.lookup('Module.pos.purchaseOrder.store.PurchaseOrders'),
             columns: me.columns ? me.columns : [
                 { text: '订单号', dataIndex: 'IdNumber', width: 150 },
-                { text: '下单时间', dataIndex: 'ExpectedArrivalDate', width: 150, xtype: 'datecolumn', format: 'Y-m-d H:i:j' },
+                { text: '预计抵达时间', dataIndex: 'ExpectedArrivalDate', width: 150, xtype: 'datecolumn', format: 'Y-m-d H:i:j' },
                 { text: '制单人编号', dataIndex: 'Operator', width: 150 },
                 { text: '需求金额', dataIndex: 'DemandAmount', width: 150, xtype: 'numbercolumn' },
                 { text: '应付金额', dataIndex: 'ActualAmount', width: 150, xtype: 'numbercolumn' },

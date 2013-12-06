@@ -45,7 +45,7 @@
             store: me.store ? me.store : Ext.data.StoreManager.lookup('Module.pos.product.store.Products'),
 			columns: me.columns ? me.columns : [
 				{ text: 'SKU', dataIndex: 'SKU', width: 100 },
-                { text: '商品全名', dataIndex: 'Name', width: 300 },
+                { text: '商品名称', dataIndex: 'Name', width: 300 },
                 { text: 'UPC', dataIndex: 'UPC', width: 120 },
                 { text: '商品类别', dataIndex: 'ProductType', width: 100 },
                 { text: 'UOM', dataIndex: 'UOMName', width: 100 },
