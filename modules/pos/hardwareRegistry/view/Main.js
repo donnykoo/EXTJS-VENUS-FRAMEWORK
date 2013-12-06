@@ -52,7 +52,17 @@ Ext.define('Module.pos.hardwareRegistry.view.Main', {
 				{ text: '门店编号',  dataIndex: 'Store', width: 100 },
 				{ text: '工位编号', dataIndex: 'BayNumber', width: 100 },
 				{ text: '注册时间', dataIndex: 'RegTime', width: 160 },
-				{ text: '设备类型', dataIndex: 'DeviceType', width: 100 },
+				{
+				    text: '设备类型', dataIndex: 'DeviceType', width: 100,
+				    renderer: function (value, metaData, record, rowIndex, colIndex, store, view) {
+				        if (value === '0') {
+				            return 'IPAD';
+				        } else if (value === '1') {
+				            return '工位平板';
+				        }
+				        return value;
+				    }
+				},
 				{ text: '设备硬件ID', dataIndex: 'MachineId', width: 160 },
 				{ text: '密钥', dataIndex: 'Secret', flex:1 }
 			]

@@ -25,9 +25,8 @@ Ext.define('Module.pos.pickOutOrder.view.Main', {
                             name: 'IdNumber',
                             flex: 1
                         }, {
-                            xtype: 'textfield',
-                            fieldLabel: '虚拟库',
-                            name: 'VirtualStock',
+                            fieldLabel: '车牌号',
+                            name: 'PlateNumber',
                             flex: 1
                         }, {
                             xtype: 'hidden',
@@ -49,6 +48,8 @@ Ext.define('Module.pos.pickOutOrder.view.Main', {
             columns: [
 				{xtype: 'rownumberer'},
                 { text: '领料单号', dataIndex: 'IdNumber', width: 160 },
+                { text: '车牌号', dataIndex: 'PlateNumber', width: 90 },
+                { text: '服务商品名称', dataIndex: 'ServiceProductName', width: 160 },
                 {
                     text: '领料类型', dataIndex: 'PickOutOrderType', width: 100,
                     renderer:function(value) {
@@ -77,7 +78,8 @@ Ext.define('Module.pos.pickOutOrder.view.Main', {
                         }
                         return value;
                     }
-                }
+                },
+                { text: '备注', dataIndex: 'Memo', width: 200 }
             ]
         });
 		

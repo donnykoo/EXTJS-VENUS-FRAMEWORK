@@ -7,10 +7,12 @@ Ext.define('App.view.LoginFormPanel', {
 	title: '请登录',
 	closable: false,
 	constrain: true,
-	height: 200,
+	height: 210,
 	resizable: false,
 	modal: true,
 	layout: 'anchor',
+	apiPath: Ext.String.format('{0}/Account', "/" === basket.contextPath ? "" : basket.contextPath),
+
     initComponent: function() {
         var me = this;
 		
@@ -28,19 +30,23 @@ Ext.define('App.view.LoginFormPanel', {
 			},
 
 			items: [{
+			    xtype: 'textfield',
+			    name: 'StoreCode',
+			    fieldLabel: '门店编码',
+			    allowBlank: false
+			}, {
 				xtype: 'textfield',
-				name: 'username',
-				fieldLabel: 'User Name',
+				name: 'UserName',
+				fieldLabel: '用户名',
 				allowBlank: false,
 				minLength: 6
 			}, {
 				xtype: 'textfield',
-				name: 'password',
-				fieldLabel: 'Password',
+				name: 'Password',
+				fieldLabel: '密码',
 				inputType: 'password',
 				style: 'margin-top:15px',
-				allowBlank: false,
-				minLength: 8
+				allowBlank: false
 			}],
 
 			dockedItems: [{
@@ -55,29 +61,23 @@ Ext.define('App.view.LoginFormPanel', {
 
 				items: [{
 					xtype: 'button',
-					formBind: true,
-					disabled: true,
-					text: 'Submit Registration',
+					text: '登陆',
 					width: 140,
 					handler: function() {
 						var form = this.up('form').getForm();
 
-						/* Normally we would submit the form to the server here and handle the response...
+					    /* Normally we would submit the form to the server here and handle the response...*/
 						form.submit({
 							clientValidation: true,
-							url: 'register.php',
-							success: function(form, action) {
-							   //...
+							url: Ext.String.format("{0}/AjaxLogOn", me.apiPath),
+							success: function () {
+							    me.close();
+							    Ext.ux.ActivityMonitor.start();
 							},
-							failure: function(form, action) {
-								//...
+							failure: function () {
+							    Ext.Msg.alert('提示', '用户名或密码错误');
 							}
 						});
-						*/
-
-						if (form.isValid()) {
-							Ext.Msg.alert('Submitted Values', form.getValues(true));
-						}
 					}
 				}]
 			}]
